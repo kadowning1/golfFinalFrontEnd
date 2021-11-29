@@ -34,11 +34,12 @@ export default function NavigationBar(props) {
             <div className="container-fluid justify-content-center">
                 <div className='row'>
                     <div className='col-12'>
-                        <Navbar bg="primary" variant="dark">
+                        <Navbar variant="dark">
                             <Container>
-                                <Navbar.Brand as={Link} to="/">Cat Steve's</Navbar.Brand>
+                                <Navbar.Brand as={Link} to="/">Major Golf Pool</Navbar.Brand>
                                 <Nav className="me-auto">
-                                    <Nav.Link as={Link} to="/" >Home</Nav.Link>
+                                    <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                                    <Nav.Link as={Link} to="/createteam">Create Team</Nav.Link>
                                     <Nav.Link as={Link} to="/newuser">New User</Nav.Link>
                                     {props.token.length > 0 ? <Button variant="success" onClick={logOut}>Logout</Button> : null}
                                 </Nav>

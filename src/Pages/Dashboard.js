@@ -49,10 +49,8 @@ export default function Dashboard(props) {
             <br></br>
 
             <DropdownButton
-                variant="outline-secondary"
-                title="Previous Orders"
+                title="Links"
                 id="input-group-dropdown-1"
-
             >
                 <div className='text-center'>
                     <h5>Previous Orders</h5>

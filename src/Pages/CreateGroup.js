@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 
 export default function Login(props) {
@@ -93,7 +93,7 @@ export default function Login(props) {
       <div className='row'>
         <div className="col text-center">
           <br></br>
-          <h3>Log In To Continue</h3>
+          <h3>Create Your Group!</h3>
           <br></br>
           <div className='card-body p-0'>
             <div className='row justify-content-center'>
@@ -115,7 +115,7 @@ export default function Login(props) {
             </label>
             <br></br>
             <label>
-              <h6 className='p-2'>Password</h6>
+              <h6 className='p-2'>Group Name</h6>
               <input
                 {...register("password", { required: true, minLength: 8, maxLength: 64 })}
                 type="password"
@@ -124,14 +124,11 @@ export default function Login(props) {
                 onChange={objectAssistant}
                 id='password'
               />
-              {errors.password && <h4 className='text-danger'>Password is invalid.</h4>}
+              {errors.password && <h4 className='text-danger'>Group is invalid.</h4>}
             </label>
             <br></br>
             <div className='p-3'>
-              <Button type="submit" variant="secondary" size='lg'>Login</Button>{' '}
-            </div>
-            <div className='p-3'>
-              <Link as={Link} to="/newuser" className="btn btn-secondary">New User</Link>
+              <Button type="submit" variant="secondary" size='lg'>Submit Group</Button>{' '}
             </div>
             {/* <p>{error.message}</p> */}
             {error.length > 0 ? <h4 className='text-danger'>{error}</h4> : null}
@@ -139,7 +136,5 @@ export default function Login(props) {
         </div>
       </div>
     </div>
-
-
   )
 }

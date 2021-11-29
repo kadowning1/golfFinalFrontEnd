@@ -115,6 +115,14 @@ export default function NewUser(props) {
               />
               {errors.email && <h4 className='text-danger'>Email is invalid.</h4>}
             </label>
+            <label className='p-3'>
+              <h5>Enter Age</h5>
+              <input type="number" 
+              min="1" 
+              max="100"
+              placeholder="1" />
+              {errors.email && <h4 className='text-danger'>Email is invalid.</h4>}
+            </label>
             <div className='p-3'>
               <Button
                 variant="secondary"
