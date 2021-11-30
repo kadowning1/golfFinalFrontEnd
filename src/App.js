@@ -10,7 +10,7 @@ import Login from './Pages/Login';
 import ImportantInfo from './Pages/ImportantInfo';
 import NavigationBar from './Components/NavigationBar';
 import Footer from './Components/Footer';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Home from './Pages/Home';
 // import { Navbar } from 'react-bootstrap';
 
@@ -24,9 +24,12 @@ function App() {
         }
     }, [])
 
-    // if (!token) {
-    //     return <Redirect to="/home" />
-    // }
+    const setDeadline = () => {
+
+    };
+
+    setInterval(setDeadline, 1000);
+
 
     const saveToken = userToken => {
         localStorage.setItem('token', userToken);
@@ -41,45 +44,32 @@ function App() {
     console.log(token)
 
     return (
-        <body className="bg-success text-center">
+        <body className="masters text-center">
             <div className="container">
                 <div classname="row">
                     <div classname="col-12">
-                        {/* <div className="text-center bg-success"> */}
                         <h1>Major Golf Pool</h1>
                         <BrowserRouter>
                             <NavigationBar
                                 removeToken={removeToken}
                                 token={token} />
                             <Routes>
-                                {/* <Route path="/dashboard">
-                        {/* {token.length === 0 ? <Redirect to='/login' /> : element=<Dashboard token={token} />} */}
-                                {/* <Dashboard />
-                    </Route> */}
-                                {/* <Route path="/newuser">
-                        <NewUser saveToken={saveToken} />
-                    </Route> */}
                                 <Route path="/information" element={<ImportantInfo />} />
                                 <Route path="/creategroup" element={<CreateGroup />} />
-                                <Route path="/dashboard" element={<Dashboard />} />
+                                <Route path="/dashboard" element={<Dashboard saveToken={saveToken} token={token} />} />
                                 <Route path="/group" element={<Group />} />
                                 <Route path="/team" element={<Team />} />
-                                <Route path="/newuser" element={<NewUser />} />
-                                <Route path="/login" element={<Login />} />
-                                {/* {token.length > 0 ? <Redirect to='/dashboard' /> : element=<Login saveToken={saveToken} />} */}
-                                {/* <Login />
-                    </Route> */}
+                                <Route path="/newuser" element={<NewUser saveToken={saveToken} token={token} />} />
+                                <Route path="/login" element={<Login saveToken={saveToken} token={token} />} />
                                 <Route path="/" element={<Home />} />
-                                {/* <Home />
-                    </Route> */}
                             </Routes>
-                            {/* <ReactForm />    */}
-                            <Footer />
+                            <Footer
+                                removeToken={removeToken}
+                                token={token} />
                         </BrowserRouter>
                     </div>
                 </div>
             </div>
-
         </body>
     );
 }

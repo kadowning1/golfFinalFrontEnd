@@ -109,7 +109,7 @@ export default function NewUser(props) {
                 {...register("email", { required: true, minLength: 4, maxLength: 64 })}
                 type="email"
                 name='email'
-                placeholder="catsteve@gmail.com"
+                placeholder="Email"
                 onChange={objectAssistant}
                 value={newUser.email}
               />

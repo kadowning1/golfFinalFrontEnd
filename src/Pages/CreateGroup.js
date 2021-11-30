@@ -92,14 +92,9 @@ export default function Login(props) {
     <div className='container'>
       <div className='row'>
         <div className="col text-center">
-          <br></br>
+          
           <h3>Create Your Group!</h3>
-          <br></br>
-          <div className='card-body p-0'>
-            <div className='row justify-content-center'>
-              <img className='h-25 w-25' src='./img/stock.jpg' alt='logo'></img>
-            </div>
-          </div>
+          
           <form onSubmit={handleSubmit(getLogin)}>
             <label>
               <h6 className='p-2'>Username</h6>
