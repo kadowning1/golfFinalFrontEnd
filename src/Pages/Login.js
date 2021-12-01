@@ -11,8 +11,8 @@ export default function Login(props) {
 
     const { register, formState: { errors }, handleSubmit, } = useForm();
 
-    const getLogin = (data, event) => {
-        event.preventDefault();
+    const getLogin = () => {
+        // event.preventDefault();
         axios({
             method: 'post',
             url: 'https://library-kadowning110103.codeanyapp.com/oauth/token',
@@ -22,7 +22,7 @@ export default function Login(props) {
                 // email: "delphia.nitzsche@example.org",
                 // password: "changeme",
                 client_id: "2",
-                client_secret: "PUaIhOjBvdr2n3Vu8lng4tEJpoCkNzTj15DzInnQ",
+                client_secret: "tQWD4cIlq1fG0TlUFEo6u20ODjynd7OtAhNHHXuH",
                 scope: "",
                 grant_type: "password",
             },
@@ -34,7 +34,7 @@ export default function Login(props) {
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
                 'Access-Control-Allow-Credentials': true,
-                // 'Authorization': 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiZDJmYzY5ZTViNjQ0ZDUwMjUwNmEwZGVkZDE5NDVkNjJmZmRkMmJmYzg5YjU4Njc0NzRlM2VmN2I4N2M1ZjlhNTAyNDM3M2E0N2FjNTI4ODAiLCJpYXQiOjE2MzgyODE2MjAuMDk3NjkxLCJuYmYiOjE2MzgyODE2MjAuMDk3Njk2LCJleHAiOjE2Njk4MTc2MjAuMDg1Mzg3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ac6WClE3rB9w_uKjUh0rnkv3WuqUBfGr9BmZ0H0xKn9LH0g-pVEim99QkLtoof1aaWtKIp7OrNWSCQNN4rz79DrNCoxVE9gz5HQpvr2BsF_PmiMrrcBxqj5uOw_f4hYNkbArZuPwjItxaxKerdxcAqIR9CKLAZWx79mCYSffr3UlG2o1c9k9rz2vNClMaLQA2lziGjpv2h3oYLbYPengcjR918WGXKk93Zwx2oOPGWcjNeKtHu9j5gZ2Re9EE-R8G3nIYlQRi4hCcOTLqrigtp5ar1VRgoTSOg81PX7VWS8KA4b71KWFRL1WOPoFcyMskh-qJI-DjMCjMg4wWUHNXvKeK6nNIxhlK92KPke0FBk9F77-qOjS4gFS3fygW7My-bQfW7154ZkyfKF00P1CSs_ke-SyUBt9Fvfo4jF64wm2ZDSg47eQ-utMhwOXNQTZIb-NCqXUcZQNahIrutv0pyfS7MHuX4joKxfx6m7jH0Q3a5hxOmYgpSkW37cbOTAraxImkQT2HMSut7O9Yklo2fdwBhFWZdsFUSDJ_YiljVZRGiCe1ufV2Q9uPdV-GY3aPufbFtLbbiWrCJ7boHeHN3K6LUbKnuUPVzfYVDTW9A0hPH0tUUYzMPf4v5i1CiFd3CNcEKyNreLX6jxdjwv4E3pkzmdWnO4N5lunNTKjGDQ'
+                // 'Authorization': 'Bearer ' + 'token'
             },
         }
         )

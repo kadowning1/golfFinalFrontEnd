@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Nav, Button } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 import axios from 'axios'
 
 export default function Footer(props) {
@@ -35,7 +35,7 @@ export default function Footer(props) {
                                 <Nav.Link as={Link} to="/team" className="text-light">TeamView</Nav.Link>
                                 <Nav.Link as={Link} to="/group" className="text-light">GroupPage</Nav.Link>
                                 <Nav.Link as={Link} to="/information" className="text-light">Important Info</Nav.Link>
-                                {/* {props.token.length > 0 ? <Button variant="danger" onClick={logOut}>Logout</Button> : null} */}
+                                <Nav.Link as={Link} to="/player" className="text-light">Players</Nav.Link>
                             </Nav>
                     </div>
                 </div>

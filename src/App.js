@@ -5,6 +5,7 @@ import Dashboard from './Pages/Dashboard';
 import NewUser from './Pages/NewUser';
 import Group from './Pages/Group';
 import Team from './Pages/Team';
+import Player from './Pages/Player';
 import CreateGroup from './Pages/CreateGroup';
 import Login from './Pages/Login';
 import ImportantInfo from './Pages/ImportantInfo';
@@ -55,8 +56,9 @@ function App() {
                                 token={token} />
                             <Routes>
                                 <Route path="/information" element={<ImportantInfo />} />
+                                <Route path="/player" element={<Player />} />
                                 <Route path="/creategroup" element={<CreateGroup />} />
-                                <Route path="/dashboard" element={<Dashboard saveToken={saveToken} token={token} />} />
+                                <Route path="/dashboard" element={<Dashboard token={token} />} />
                                 <Route path="/group" element={<Group />} />
                                 <Route path="/team" element={<Team />} />
                                 <Route path="/newuser" element={<NewUser saveToken={saveToken} token={token} />} />
