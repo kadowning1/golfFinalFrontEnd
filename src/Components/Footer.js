@@ -35,7 +35,7 @@ export default function Footer(props) {
                                 <Nav.Link as={Link} to="/team" className="text-light">TeamView</Nav.Link>
                                 <Nav.Link as={Link} to="/group" className="text-light">GroupPage</Nav.Link>
                                 <Nav.Link as={Link} to="/information" className="text-light">Important Info</Nav.Link>
-                                {props.token.length > 0 ? <Button variant="danger" onClick={logOut}>Logout</Button> : null}
+                                {/* {props.token.length > 0 ? <Button variant="danger" onClick={logOut}>Logout</Button> : null} */}
                             </Nav>
                     </div>
                 </div>

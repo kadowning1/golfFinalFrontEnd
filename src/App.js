@@ -10,7 +10,7 @@ import Login from './Pages/Login';
 import ImportantInfo from './Pages/ImportantInfo';
 import NavigationBar from './Components/NavigationBar';
 import Footer from './Components/Footer';
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Pages/Home';
 // import { Navbar } from 'react-bootstrap';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 
 export default function Login(props) {
@@ -22,7 +22,7 @@ export default function Login(props) {
                 // email: "delphia.nitzsche@example.org",
                 // password: "changeme",
                 client_id: "2",
-                client_secret: "ziA3JCf6Ov79X5rJLntMFmJwgPILHgLB8QUw0g0l",
+                client_secret: "PUaIhOjBvdr2n3Vu8lng4tEJpoCkNzTj15DzInnQ",
                 scope: "",
                 grant_type: "password",
             },

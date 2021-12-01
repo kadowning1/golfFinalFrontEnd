@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 
 export default function NewUser(props) {
@@ -9,7 +9,7 @@ export default function NewUser(props) {
   const [newUser, setNewUser] = useState({})
   const [error, setError] = useState('')
 
-//   const history = useHistory()
+  const history = useNavigate()
 
   const { register, formState: { errors }, handleSubmit, } = useForm();
 
@@ -24,7 +24,7 @@ export default function NewUser(props) {
     // console.log(data)
     axios({
       method: 'post',
-      url: 'https://aincbootcampapi-ianrios529550.codeanyapp.com/api/auth/register',
+      url: 'https://library-kadowning110103.codeanyapp.com/api/v1/register',
       data,
       headers: {
         'Accept': 'application/json',
@@ -42,7 +42,7 @@ export default function NewUser(props) {
       .then(function (response) {
         // handle success
         props.saveToken(response.data.data.token)
-        // history.push('/login')
+        history.push('/login')
 
       })
       .catch(function (error) {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
+import { Navigate } from 'react-router-dom';
 import { Dropdown, DropdownButton} from 'react-bootstrap';
 
 
@@ -41,6 +42,8 @@ export default function Dashboard(props) {
     // console.log(token)
 
     return (
+        props.token.length === 0 ?
+            <Navigate to='/login' /> :
         <div>
 
             <h2>Dashboard</h2>
