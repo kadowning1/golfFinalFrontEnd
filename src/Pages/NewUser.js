@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 
 export default function NewUser(props) {
@@ -20,19 +20,20 @@ export default function NewUser(props) {
       email: newUser.email,
       name: newUser.username,
       password: newUser.password,
+      age: newUser.age
     }
     // console.log(data)
     axios({
       method: 'post',
-      url: 'https://library-kadowning110103.codeanyapp.com/api/v1/register',
+      url: 'https://library-kadowning110103.codeanyapp.com/api/register',
       data,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        // 'Access-Control-Allow-Headers': 'Content-Type',
-        // 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-        // 'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Credentials': true,
         // 'Authorization': 'Bearer ' + token
       },
     }
@@ -41,25 +42,13 @@ export default function NewUser(props) {
 
       .then(function (response) {
         // handle success
-        props.saveToken(response.data.data.token)
+        console.log(response)
+        props.saveToken(response.data.access_token.token)
         history.push('/login')
 
       })
       .catch(function (error) {
         console.log({ error })
-        switch (error.response.status) {
-          case 422:
-            console.log(error.response.data.errors)
-            if (error.response.data.errors.email) {
-              setError(error.response.data.errors.email)
-            } else 
-            {
-              setError(error.response.data.errors.password)
-            }
-            break
-          default:
-            // console.log('No status')
-        }
       })
       .then(function () {
         // always executed
@@ -71,6 +60,8 @@ export default function NewUser(props) {
   }
 
   return (
+    props.token.length > 0 ?
+    <Navigate to='/dashboard' /> :
     <div className='container'>
       <div className='row'>
         <div className="col text-center">
@@ -120,6 +111,9 @@ export default function NewUser(props) {
               <input type="number" 
               min="1" 
               max="100"
+              name='age'
+              onChange={objectAssistant}
+                value={newUser.age}
               placeholder="1" />
               {errors.email && <h4 className='text-danger'>Email is invalid.</h4>}
             </label>

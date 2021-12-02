@@ -96,7 +96,7 @@ export default function Login(props) {
                             </label>
                             <br></br>
                             <div className='p-3'>
-                                <Button type="submit" variant="secondary" size='lg'>Login</Button>{' '}
+                                <Button type="submit" variant="secondary" size='lg'>Login</Button>
                             </div>
                             <div className='p-3'>
                                 <Link as={Link} to="/newuser" className="btn btn-secondary">New User</Link>

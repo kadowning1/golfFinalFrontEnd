@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import { Nav } from 'react-bootstrap';
 import { Navigate } from 'react-router-dom';
-import { Dropdown, DropdownButton} from 'react-bootstrap';
+import { Dropdown, DropdownButton, Container, Row, Col, Card } from 'react-bootstrap';
+import { Element } from 'react-scroll'
 
 
 export default function Dashboard(props) {
@@ -35,7 +38,7 @@ export default function Dashboard(props) {
             .then(function () {
                 // always executed
             });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     console.log(dashboard)
@@ -44,36 +47,61 @@ export default function Dashboard(props) {
     return (
         props.token.length === 0 ?
             <Navigate to='/login' /> :
-        <div>
-
-            <h2>Dashboard</h2>
-            <br></br>
-            <h3>Welcome {Object.keys(dashboard).length > 0 && dashboard.data.user_data.name}!</h3>
-            <br></br>
-
-            <DropdownButton
-                title="Links"
-                id="input-group-dropdown-1"
-            >
-                <div className='text-center'>
-                    <h5>Previous Orders</h5>
-                    <h6>Item:</h6>
-                    <p>Whopper Plopper</p>
-                    {/* <br></br> */}
-                    <h6>Order Placed:</h6>
-                    <p>{dashboard?.data?.user_data.created_at.split('T')[0]}</p>
-                    {/* <p>{JSON.stringify(dashboard?.data?.user_data.orders[0])}</p>  */}
-                    {/* map over and print data */}
-                    <h6>Shipping:</h6>
-                    <p>{dashboard?.data?.user_data?.orders[0]?.shipping.name}</p>
+            <div>
+                <h2>Dashboard</h2>
+                <br></br>
+                <h3>Welcome {Object.keys(dashboard).length > 0 && dashboard.data.user_data.name}!</h3>
+                <br></br>
+                <div>
+                    <h4>Deadline to Submit Picks: {Date()}</h4>
                 </div>
-                <Dropdown.Divider />
-                <Dropdown.Item href="#">Products</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item href="https://port-3000-react-container-2-kadowning110103.codeanyapp.com/">Home</Dropdown.Item>
-            </DropdownButton>
-
-
-        </div>
+                <Container className='justify-content-center'>
+                    <Row>
+                        <Col lg={5}>
+                            <h3>Team Selections</h3>
+                            <Element className="element" id="scroll-container" style={{
+                                position: 'relative',
+                                height: '50vh',
+                                overflow: 'scroll',
+                                marginBottom: '100px'
+                            }}>
+                                <Element name="scroll-container-first-element" style={{
+                                    marginBottom: '200px'
+                                }}>
+                                    <Card className="">
+                                        <Col>
+                                            <Card className="h-100">
+                                                <Card.Body className="cardAlign">
+                                                    <Card.Title> Golfer Name Here
+                                                    <button
+                                                            type="button"
+                                                            className="btn btn-rounded mx-auto bg-secondary text-white h-100 d-flex align-items-center"
+                                                            onClick={() => this.props.checkItem(this.props.id)}>
+                                                            <i className="fas fa-minus"></i>
+                                                        </button>
+                                                    </Card.Title>
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>
+                                    </Card>
+                                </Element>
+                            </Element>
+                        </Col>
+                    </Row>
+                </Container>
+                <div className="container-fluid">
+                    <div className='row'>
+                        <div className='col-12'>
+                            <Nav className="mr-auto">
+                                <Nav.Link as={Link} to="/dashboard" className="text-light">Dashboard</Nav.Link>
+                                <Nav.Link as={Link} to="/team" className="text-light">TeamView</Nav.Link>
+                                <Nav.Link as={Link} to="/group" className="text-light">GroupPage</Nav.Link>
+                                <Nav.Link as={Link} to="/information" className="text-light">Important Info</Nav.Link>
+                                <Nav.Link as={Link} to="/player" className="text-light">Players</Nav.Link>
+                            </Nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
     );
 }

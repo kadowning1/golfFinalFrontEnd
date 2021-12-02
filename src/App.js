@@ -31,7 +31,6 @@ function App() {
 
     setInterval(setDeadline, 1000);
 
-
     const saveToken = userToken => {
         localStorage.setItem('token', userToken);
         setToken(userToken);
