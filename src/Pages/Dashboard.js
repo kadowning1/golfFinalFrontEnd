@@ -9,49 +9,13 @@ import { Element } from 'react-scroll'
 
 export default function Dashboard(props) {
 
-    const [dashboard, setDashboard] = useState({})
-
-    useEffect(() => {
-
-        axios({
-            method: 'get',
-            url: 'https://aincbootcampapi-ianrios529550.codeanyapp.com/api/auth/user',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Authorization': 'Bearer ' + props.token
-            },
-        })
-            // Make a request for a user with a given ID
-
-            .then(function (response) {
-                // handle success
-                // dashboardInfo()
-                setDashboard(response.data)
-                console.log(response.data)
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(props.token)
-                console.log(error);
-            })
-            .then(function () {
-                // always executed
-            });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    console.log(dashboard)
-    // console.log(token)
-
     return (
         props.token.length === 0 ?
             <Navigate to='/login' /> :
             <div>
                 <h2>Dashboard</h2>
                 <br></br>
-                <h3>Welcome {Object.keys(dashboard).length > 0 && dashboard.data.user_data.name}!</h3>
+                <h3>Welcome {Object.keys(props.userData).length > 0 && props.userData.name}!</h3>
                 <br></br>
                 <div>
                     <h4>Deadline to Submit Picks: {Date()}</h4>

@@ -8,49 +8,51 @@ export default function ImportantInfo() {
     const [weather, getWeather] = useState([])
 
 
-    // useEffect((data, event) => {
-    //     // event.preventDefault();
-    //     axios({
-    //         method: 'get',
-    //         url: 'https://golf-leaderboard-data.p.rapidapi.com/leaderboard/25',
-    //         headers: {
-    //             'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
-    //             'x-rapidapi-key': '4e3ba61b86mshab04471da6fe79cp136b51jsnb7094541e457'
-    //         },
-    //     })
-    //         .then(function (response) {
-    //             console.log('response received', response)
-    //             getLeaderboard(response.data)
-    //             // props.saveToken(response.data.access_token)
-    //         })
-    //         .catch(function (error) {
-    //             console.log({ error })
-    //         })
-    //         .then(function () {
+    useEffect(() => {
+        // event.preventDefault();
+        axios({
+            method: 'get',
+            url: 'https://golf-leaderboard-data.p.rapidapi.com/leaderboard/25',
+            headers: {
+                'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
+                'x-rapidapi-key': '4e3ba61b86mshab04471da6fe79cp136b51jsnb7094541e457'
+            },
+        })
+            .then(function (response) {
+                console.log('response received', response)
+                getLeaderboard(response.data)
+                // props.saveToken(response.data.access_token)
+            })
+            .catch(function (error) {
+                console.log({ error })
+            })
+            .then(function () {
 
-    //         })
-    // },
-    //     [])
+            })
+    },
+        [])
 
-    // useEffect(() => {
+    useEffect(() => {
+        if (Object.keys(leaderboard).length > 0) {
 
-    //     axios({
-    //         method: 'get',
-    //         url: 'https://api.openweathermap.org/data/2.5/weather?zip=90210,us&appid=225e9979cafa7faa49ef4c637d23e637',
-    //     })
-    //         .then(function (response) {
-    //             console.log('response received', response)
-    //             getWeather(response.data)
-    //             // props.saveToken(response.data.access_token)
-    //         })
-    //         .catch(function (error) {
-    //             console.log({ error })
-    //         })
-    //         .then(function () {
+            axios({
+                method: 'get',
+                url: `https://api.openweathermap.org/data/2.5/weather?q=${leaderboard.results.tournament.country},us&appid=225e9979cafa7faa49ef4c637d23e637`,
+            })
+                .then(function (response) {
+                    console.log('response received', response)
+                    getWeather(response.data)
+                    // props.saveToken(response.data.access_token)
+                })
+                .catch(function (error) {
+                    console.log({ error })
+                })
+                .then(function () {
 
-    //         })
-    // },
-    //     [])
+                })
+        }
+    },
+        [leaderboard])
 
     const temp = weather?.main?.temp;
     const convert = (Math.round(1.8 * (temp - 273) + 32)) + 'ºF';
@@ -87,7 +89,7 @@ export default function ImportantInfo() {
                             <Card.Body className="cardAlign">
                                 <h4>City: {weather?.name}</h4>
                                 <h4>Temp: {convert}</h4>
-                                {/* <h4>Conditions: {conditions}</h4> */}
+                                <h4>Conditions: {Object.keys(weather).length > 0 && weather?.weather[0]?.main}</h4>
                             </Card.Body>
                         </Card>
                     </Col>
