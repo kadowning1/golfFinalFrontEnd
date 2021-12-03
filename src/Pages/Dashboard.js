@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Nav } from 'react-bootstrap';
 import { Navigate } from 'react-router-dom';
-import { Dropdown, DropdownButton, Container, Row, Col, Card } from 'react-bootstrap';
+import {Container, Row, Col, Card } from 'react-bootstrap';
 import { Element } from 'react-scroll'
 
 
@@ -29,10 +29,11 @@ export default function Dashboard(props) {
                 // handle success
                 // dashboardInfo()
                 setDashboard(response.data)
-                console.log(response)
+                console.log(response.data)
             })
             .catch(function (error) {
                 // handle error
+                console.log(props.token)
                 console.log(error);
             })
             .then(function () {
@@ -89,7 +90,7 @@ export default function Dashboard(props) {
                         </Col>
                     </Row>
                 </Container>
-                <div className="container-fluid">
+                <div className="container-fluid text-center">
                     <div className='row'>
                         <div className='col-12'>
                             <Nav className="mr-auto">
