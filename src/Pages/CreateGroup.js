@@ -3,85 +3,59 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 // import { Link } from 'react-router-dom'
 import { useForm } from "react-hook-form";
+import { useNavigate, Navigate } from 'react-router-dom';
+// import { useForm } from "react-hook-form";
 
 export default function Login(props) {
 
   const [login, setLogin] = useState({})
   const [error, setError] = useState('')
+  const [groupName, setGroupName] = useState('')
 
   const { register, formState: { errors }, handleSubmit, } = useForm();
+  const history = useNavigate()
   // const onSubmit = (data, event) => console.log(data, event);
 
   // console.log(watch(login))
 
-  const getLogin = (data, event) => {
-    // console.log(password)
-    event.preventDefault();
-    axios({
-      method: 'post',
-      url: 'https://aincbootcampapi-ianrios529550.codeanyapp.com/api/auth/login',
-      data: {
-        email: login.email,
-        password: login.password,
-        // email: "jhall1@gmail.com",
-        // password: "changeme",
-        client_id: "94ba363d-e0ab-4649-86ce-4a4392cc00ad",
-        client_secret: "mYebcUwE5S4FNff4pjK39vx3FtxCmZXz2Hy7XJHZ",
-        scope: "",
-        grantType: "password",
-      },
+  const createNewGroup = () => {
 
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        //  'Access-Control-Allow-Headers': 'Content-Type',  
-        // 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',   
-        // 'Access-Control-Allow-Credentials': true,  
-        // 'Authorization': 'Bearer ' + token
-      },
+    const data = {
+        name: groupName.name,
+        creator: groupName.creator,
+    }
+    // console.log(data)
+    axios({
+        method: 'post',
+        url: 'https://library-kadowning110103.codeanyapp.com/api/v1/submitteam',
+        data,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            'Access-Control-Allow-Credentials': true,
+            'Authorization': 'Bearer ' + props.token
+        },
     }
     )
+        // Make a request for a user with a given ID
 
-      .then(function (response) {
-        console.log('response received', response)
-        props.saveToken(response.data.data.token)
-      })
-      .catch(function (error) {
-        console.log({ error })
-        switch (error.response.status) {
-          case 422:
-            console.log(error.response.data.errors)
-            if (error.response.data.errors.email) {
-              setError(error.response.data.errors.email)
-            } else {
-              setError(error.response.data.errors.password.toUpperCase())
-            }
-            break
-          default:
-            console.log('No status')
-        }
-        // if (error.response) {
-        //   // The request was made and the server responded with a status code
-        //   // that falls out of the range of 2xx
-        //   console.log(error.response.data);
-        //   console.log(error.response.status);
-        //   console.log(error.response.headers);
-        // } else if (error.request) {
-        //   // The request was made but no response was received
-        //   // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        //   // http.ClientRequest in node.js
-        //   console.log(error.request);
-        // } else {
-        //   // Something happened in setting up the request that triggered an Error
-        //   console.log('Error', error.message);
-        // }
-        // console.log(error.config);
-      })
-      .then(function () {
+        .then(function (response) {
+            // handle success
+            console.log(response)
+            props.saveToken(response.data.access_token.token)
+            history.push('/login')
 
-      });
-  }
+        })
+        .catch(function (error) {
+            console.log({ error })
+        })
+        .then(function () {
+            // always executed
+        });
+}
 
   const objectAssistant = e => {
     return setLogin(previousState => ({ ...previousState, [e.target.name]: e.target.value }), [])
@@ -95,15 +69,15 @@ export default function Login(props) {
           
           <h3>Create Your Group!</h3>
           
-          <form onSubmit={handleSubmit(getLogin)}>
+          <form onSubmit={handleSubmit(createNewGroup)}>
             <label>
               <h6 className='p-2'>Username</h6>
               <input
-                {...register("email", { required: true, minLength: 4, maxLength: 64 })}
-                type="email"
-                name="email"
-                id='email'
-                value={login.username}
+                {...register("creator", { required: true, minLength: 4, maxLength: 64 })}
+                type="creator"
+                name="creator"
+                id='creator'
+                value={groupName.creator}
                 onChange={objectAssistant}
               />
               {errors.email && <h4 className='text-danger'>Email is invalid.</h4>}
@@ -112,12 +86,12 @@ export default function Login(props) {
             <label>
               <h6 className='p-2'>Group Name</h6>
               <input
-                {...register("password", { required: true, minLength: 8, maxLength: 64 })}
-                type="password"
-                name='password'
-                value={login.password}
+                {...register("name", { required: true, minLength: 8, maxLength: 64 })}
+                type="name"
+                name='name'
+                value={groupName.name}
                 onChange={objectAssistant}
-                id='password'
+                id='name'
               />
               {errors.password && <h4 className='text-danger'>Group is invalid.</h4>}
             </label>

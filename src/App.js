@@ -92,10 +92,10 @@ function App() {
                                 <Route path="/information" element={<ImportantInfo />} />
                                 <Route path="/player" element={<Player />} />
                                 <Route path="/rankings" element={<OWGR />} />
-                                <Route path="/creategroup" element={<CreateGroup />} />
+                                <Route path="/creategroup" element={<CreateGroup token={token}/>} />
                                 <Route path="/dashboard" element={<Dashboard token={token} userData={userData} />} />
                                 <Route path="/group" element={<Group />} />
-                                <Route path="/team" element={<Team />} />
+                                <Route path="/team" element={<Team token={token}/>} />
                                 <Route path="/newuser" element={<NewUser saveToken={saveToken} token={token} />} />
                                 <Route path="/login" element={<Login saveToken={saveToken} token={token} />} />
                                 <Route path="/" element={<Home />} />

@@ -40,7 +40,7 @@ export default function NavigationBar(props) {
                                 <Nav className="me-auto">
                                     {props.token.length === 0 ? <Nav.Link as={Link} to="/login">Login</Nav.Link> : null}
                                     {props.token.length > 0 ? <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link> : null}
-                                    <Nav.Link as={Link} to="/creategroup">Create Group</Nav.Link>
+                                    {props.token.length > 0 ? <Nav.Link as={Link} to="/creategroup">Create Group</Nav.Link> : null}
                                     <Nav.Link as={Link} to="/rankings">World Golf Rankings</Nav.Link>
                                     <Nav.Link as={Link} to="/player">Golfers This Week</Nav.Link>
                                     {props.token.length > 0 ? null : <Nav.Link as={Link} to="/newuser">New User</Nav.Link>}
