@@ -20,8 +20,9 @@ export default function Dashboard(props) {
                 <div>
                     <h4>Deadline to Submit Picks: {Date()}</h4>
                 </div>
-                <Container className='justify-content-center'>
-                    <Row>
+                <br></br>
+                <Container>
+                    <Row className='justify-content-center'>
                         <Col lg={5}>
                             <h3>Team Selections</h3>
                             <Element className="element" id="scroll-container" style={{

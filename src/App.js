@@ -6,6 +6,7 @@ import Dashboard from './Pages/Dashboard';
 import NewUser from './Pages/NewUser';
 import Group from './Pages/Group';
 import Team from './Pages/Team';
+import JoinGroup from './Pages/JoinGroup';
 import OWGR from './Pages/OWGR';
 import Player from './Pages/Player';
 import CreateGroup from './Pages/CreateGroup';
@@ -89,20 +90,24 @@ function App() {
                                 removeToken={removeToken}
                                 token={token} />
                             <Routes>
+                                {/* no token needed for route */}
                                 <Route path="/information" element={<ImportantInfo />} />
                                 <Route path="/player" element={<Player />} />
                                 <Route path="/rankings" element={<OWGR />} />
-                                <Route path="/creategroup" element={<CreateGroup token={token}/>} />
+
+                                {/* token needed for route */}
+                                <Route path="/creategroup" element={<CreateGroup token={token} />} />
                                 <Route path="/dashboard" element={<Dashboard token={token} userData={userData} />} />
-                                <Route path="/group" element={<Group />} />
-                                <Route path="/team" element={<Team token={token}/>} />
+                                <Route path="/group" element={<Group  token={token} />} />
+                                <Route path="/joingroup" element={<JoinGroup token={token} />} />
+                                <Route path="/team" element={<Team token={token} />} />
                                 <Route path="/newuser" element={<NewUser saveToken={saveToken} token={token} />} />
                                 <Route path="/login" element={<Login saveToken={saveToken} token={token} />} />
                                 <Route path="/" element={<Home />} />
                             </Routes>
-                            <Footer
+                            {/* <Footer
                                 removeToken={removeToken}
-                                token={token} />
+                                token={token} /> */}
                         </BrowserRouter>
                     </div>
                 </div>

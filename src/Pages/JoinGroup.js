@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate, Navigate } from 'react-router-dom';
 // import { useForm } from "react-hook-form";
 
-export default function CreateGroup(props) {
+export default function JoinGroup(props) {
 
   const [login, setLogin] = useState({})
   const [error, setError] = useState('')
@@ -18,7 +18,7 @@ export default function CreateGroup(props) {
 
   // console.log(watch(login))
 
-  const createNewGroup = () => {
+  const joinGroup = () => {
 
     const data = {
         name: groupName.name,
@@ -27,7 +27,7 @@ export default function CreateGroup(props) {
     // console.log(data)
     axios({
         method: 'post',
-        url: 'https://library-kadowning110103.codeanyapp.com/api/v1/submitteam',
+        url: 'https://library-kadowning110103.codeanyapp.com/api/v1/joingroup',
         data,
         headers: {
             'Accept': 'application/json',
@@ -67,23 +67,10 @@ export default function CreateGroup(props) {
       <div className='row'>
         <div className="col text-center">
           
-          <h3>Create Your Group!</h3>
+          <h3>Join a Group!</h3>
           
-          <form onSubmit={handleSubmit(createNewGroup)}>
-            <label>
-              <h6 className='p-2'>Username</h6>
-              <input
-                {...register("creator", { required: true, minLength: 4, maxLength: 64 })}
-                type="creator"
-                name="creator"
-                id='creator'
-                value={groupName.creator}
-                onChange={objectAssistant}
-              />
-              {errors.email && <h4 className='text-danger'>Email is invalid.</h4>}
-            </label>
-            <br></br>
-            <label>
+          <form onSubmit={handleSubmit(joinGroup)}>
+              <label>
               <h6 className='p-2'>Group Name</h6>
               <input
                 {...register("name", { required: true, minLength: 8, maxLength: 64 })}
@@ -97,7 +84,7 @@ export default function CreateGroup(props) {
             </label>
             <br></br>
             <div className='p-3'>
-              <Button type="submit" variant="secondary" size='lg'>Submit Group</Button>{' '}
+              <Button type="submit" variant="secondary" size='lg'>Join Group</Button>{' '}
             </div>
             {/* <p>{error.message}</p> */}
             {error.length > 0 ? <h4 className='text-danger'>{error}</h4> : null}
