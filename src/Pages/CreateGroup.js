@@ -21,8 +21,8 @@ export default function CreateGroup(props) {
   const createNewGroup = () => {
 
     const data = {
-        name: groupName.name,
         creator: groupName.creator,
+        name: groupName.name,
     }
     // console.log(data)
     axios({
@@ -45,6 +45,7 @@ export default function CreateGroup(props) {
         .then(function (response) {
             // handle success
             console.log(response)
+            setGroupName(data.response)
             // props.saveToken(response.data.access_token.token)
             history.push('/login')
 
@@ -69,7 +70,7 @@ export default function CreateGroup(props) {
           
           <h3>Create Your Group!</h3>
           
-          <form onSubmit={handleSubmit(createNewGroup)}>
+          <form onSubmit={createNewGroup}>
             <label>
               <h6 className='p-2'>Username</h6>
               <input

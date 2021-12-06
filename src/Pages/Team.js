@@ -5,6 +5,7 @@ import { Element } from 'react-scroll'
 import Button from 'react-bootstrap/Button';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
+import { useDeepCompareEffect } from 'react-use';
 
 export default function Team(props) {
     const [APIData, setAPIData] = useState([])
@@ -15,46 +16,81 @@ export default function Team(props) {
     const history = useNavigate()
 
     //get entry list with api call
-    // useEffect((data) => {
+    useEffect((data) => {
 
-    //     axios({
-    //         method: 'get',
-    //         url: 'https://golf-leaderboard-data.p.rapidapi.com/entry-list/219',
-    //         headers: {
-    //             'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
-    //             'x-rapidapi-key': '867b92cc92mshb16f3d6e206d6c7p1d5055jsn98f57c1ebf45'
-    //         },
-    //     })
-    //         .then(function (response) {
-    //             // console.log('response received', response)
-    //             const data = response.data.results.entry_list.map(g => ({ ...g, addedToTeam: false }))
-    //             console.log(data)
-    //             console.log(props.token)
-    //             setAPIData(data)
-    //             // props.saveToken(response.data.access_token)
-    //         })
-    //         .catch(function (error) {
-    //             console.log({ error })
-    //         })
-    //         .then(function () {
+        axios({
+            method: 'get',
+            url: 'https://golf-leaderboard-data.p.rapidapi.com/entry-list/219',
+            headers: {
+                'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
+                'x-rapidapi-key': '867b92cc92mshb16f3d6e206d6c7p1d5055jsn98f57c1ebf45'
+            },
+        })
+            .then(function (response) {
+                // console.log('response received', response)
+                // const data = response.data.results.entry_list.map(g =>{
 
-    //         })
-    // },
-    //     [])
+                //     props.user.team.team_golfers.map()
 
+                //   return ({ ...g })
+
+
+                // })
+                console.log(data)
+                console.log(props.token)
+                setAPIData(response.data.results.entry_list)
+                // props.saveToken(response.data.access_token)
+            })
+            .catch(function (error) {
+                console.log({ error })
+            })
+            .then(function () {
+
+            })
+    },
+        [])
+
+
+    useDeepCompareEffect(() => {
+        if (APIData && props.userData) {
+            setAPIData(prevAPIData => {
+                let myGolfers = [];
+                const newAPIData = prevAPIData.filter(apiGolfer => {
+                    let foundGolfer = props.userData.team.team_golfers.find(myGolfer => {
+                        return myGolfer.id === apiGolfer.player_id
+                    })
+                    if (foundGolfer) {
+                        myGolfers.push(foundGolfer)
+                        return false
+                    }
+
+                    return apiGolfer
+                })
+                setCurrentGolfers(myGolfers)
+                return newAPIData
+            })
+        }
+    }, [APIData, props.userData]);
+
+    // useDeepCompareEffect(() => {
+
+    // }, [currentGolfers]);
+
+    // useDeepCompareEffect(() => {
+
+    // }, [props.userData.team.team_golfers]);
 
     //call to add team name to db
 
-    const createNewTeam = () => {
+    const updateTeamName = () => {
 
         const data = {
             name: teamName.name,
-            creator: teamName.creator,
         }
         // console.log(data)
         axios({
             method: 'post',
-            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/submitteam',
+            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/updateteamname',
             data,
             headers: {
                 'Accept': 'application/json',
@@ -72,8 +108,8 @@ export default function Team(props) {
             .then(function (response) {
                 // handle success
                 console.log(response)
-                props.saveToken(response.data.access_token.token)
-                history.push('/login')
+                // props.saveToken(response.data.access_token.token)
+                // history.push('/login')
 
             })
             .catch(function (error) {
@@ -85,7 +121,7 @@ export default function Team(props) {
     }
 
 
-      //call to remove golfer from team in db
+    //call to remove golfer from team in db
     const removeGolferTeam = () => {
 
         const data = {
@@ -98,7 +134,7 @@ export default function Team(props) {
 
         axios({
             method: 'post',
-            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/addgolfer',
+            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/removegolfer',
             data,
             headers: {
                 'Accept': 'application/json',
@@ -115,7 +151,7 @@ export default function Team(props) {
 
             .then(function (response) {
                 // handle success
-                
+
                 console.log(response)
                 setCurrentGolfers(response.data)
                 props.saveToken(response.data.access_token.token)
@@ -134,51 +170,80 @@ export default function Team(props) {
     //call to add golfer from team in db
     const addGolfer = (id) => {
         if (6 - currentGolfers.length > 0) {
-            axios({
-                method: 'post',
-                url: 'https://library-kadowning110103.codeanyapp.com/api/v1/addgolfer',
-                data: {
-                    // eslint-disable-next-line no-undef
-                    golfer_id: id,
-                    // eslint-disable-next-line no-undef
-                    // team_id: team_id
-                },
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Headers': 'Content-Type',
-                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-                    'Access-Control-Allow-Credentials': true,
-                    'Authorization': 'Bearer ' + props.token
-                },
-            }
-            )
-                // Make a request for a user with a given ID
+            // axios({
+            //     method: 'post',
+            //     url: 'https://library-kadowning110103.codeanyapp.com/api/v1/addgolfer',
+            //     data: {
+            //         // eslint-disable-next-line no-undef
+            //         golfer_id: id,
+            //         // eslint-disable-next-line no-undef
+            //         // team_id: team_id
+            //     },
+            //     headers: {
+            //         'Accept': 'application/json',
+            //         'Content-Type': 'application/json',
+            //         'Access-Control-Allow-Origin': '*',
+            //         'Access-Control-Allow-Headers': 'Content-Type',
+            //         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            //         'Access-Control-Allow-Credentials': true,
+            //         'Authorization': 'Bearer ' + props.token
+            //     },
+            // }
+            // )
+            //     // Make a request for a user with a given ID
 
-                .then(function (response) {
-                    // handle success
-                    setAPIData(prevdata => {
-                        return prevdata.map(prevgolfer => {
-                            let golfer = { ...prevgolfer }
-                            if (golfer.player_id === id) {
-                                golfer.addedToTeam = true;
-                            }
-                            return golfer
-                        })
-                    })
-                    console.log(response)
-                    // setCurrentGolfers(response.data)
-                    props.saveToken(response.data.access_token.token)
-                    history.push('/login')
+            //     .then(function (response) {
+            //         // handle success
 
+
+            let myGolfers = [];
+            setAPIData(prevAPIData => {
+                const newAPIData = prevAPIData.filter(apiGolfer => {
+                    // console.log(apiGolfer)
+                    // console.log(!!foundGolfer)
+
+                    if (id === apiGolfer.player_id) {
+                        myGolfers.push(apiGolfer)
+                        console.log('myGolfers.push(apiGolfer)', apiGolfer, myGolfers)
+                        return false
+                    }
+
+                    let foundGolfer = currentGolfers.find(myGolfer => myGolfer.player_id === apiGolfer.player_id)
+                    if (foundGolfer) {
+                        console.log('myGolfers.push(foundGolfer)')
+                        myGolfers.push(foundGolfer)
+                        return false
+                    }
+
+                    return apiGolfer
                 })
-                .catch(function (error) {
-                    console.log({ error })
-                })
-                .then(function () {
-                    // always executed
-                });
+                return newAPIData
+            })
+            console.log(myGolfers)
+            setCurrentGolfers(prevCurrentGolfers => {
+                // let newGolfers = prevCurrentGolfers
+
+                // const golfer = {
+                //     country: 'usa',
+                //     last_name: "rios",
+                //     first_name: "ian",
+                //     player_id: 12341534
+                // }
+
+                return myGolfers
+            })
+            // console.log(response)
+            // setCurrentGolfers(response.data)
+            // props.saveToken(response.data.access_token.token)
+            // history.push('/login')
+
+            // })
+            // .catch(function (error) {
+            //     console.log({ error })
+            // })
+            // .then(function () {
+            //     // always executed
+            // });
         }
     }
 
@@ -194,6 +259,11 @@ export default function Team(props) {
             })
         })
     }
+
+
+    useEffect(addGolfer, removeGolfer, [APIData]);
+
+
     useEffect(() => setCurrentGolfers(APIData.filter((golfer, index) => {
         return golfer.addedToTeam
     })), [APIData])
@@ -204,7 +274,7 @@ export default function Team(props) {
 
     return (
         <Container className="text-center display-3">
-            <form onSubmit={handleSubmit(createNewTeam)}>
+            <form onSubmit={handleSubmit(updateTeamName)}>
                 Select Your Team
             <Row>
                     <Col lg={12}>
@@ -234,11 +304,7 @@ export default function Team(props) {
                                 marginBottom: '200px'
                             }}>
                                 <Card className="">
-                                    {APIData.filter((golfer, index) => {
-                                        // console.log(golfer)
-                                        // console.log(props.token)
-                                        return !golfer.addedToTeam
-                                    }).map((data, id) => (
+                                    {APIData.map((data, id) => (
                                         <Col key={id}>
                                             <Card className="h-100">
                                                 <Card.Body className="cardAlign">

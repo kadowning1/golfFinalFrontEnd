@@ -21,8 +21,7 @@ export default function JoinGroup(props) {
   const joinGroup = () => {
 
     const data = {
-        name: groupName.name,
-        creator: groupName.creator,
+        name: groupName.name
     }
     // console.log(data)
     axios({
@@ -45,8 +44,9 @@ export default function JoinGroup(props) {
         .then(function (response) {
             // handle success
             console.log(response)
-            props.saveToken(response.data.access_token.token)
-            history.push('/login')
+            setGroupName(data.response)
+            // props.saveToken(response.data.access_token.token)
+            // history.push('/login')
 
         })
         .catch(function (error) {
@@ -69,7 +69,7 @@ export default function JoinGroup(props) {
           
           <h3>Join a Group!</h3>
           
-          <form onSubmit={handleSubmit(joinGroup)}>
+          <form onSubmit={joinGroup}>
               <label>
               <h6 className='p-2'>Group Name</h6>
               <input

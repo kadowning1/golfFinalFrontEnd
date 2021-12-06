@@ -13,12 +13,13 @@ export default function Player(token, userData, props) {
             url: 'https://golf-leaderboard-data.p.rapidapi.com/entry-list/219',
             headers: {
                 'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
-                'x-rapidapi-key': '867b92cc92mshb16f3d6e206d6c7p1d5055jsn98f57c1ebf45'
+                'x-rapidapi-key': ''
             },
         })
             .then(function (response) {
                 console.log('response received', response)
                 setAPIData(response.data)
+                console.log(props.userData)
                 // props.saveToken(response.data.access_token)
             })
             .catch(function (error) {

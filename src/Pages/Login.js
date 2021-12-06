@@ -20,7 +20,7 @@ export default function Login(props) {
                 username: login.email,
                 password: login.password,
                 client_id: "2",
-                client_secret: "itom2ALG7nvdSxOtcxEvBMHPtUoQit8SpdZFkEFT",
+                client_secret: "fFt4aVdOeY5oBaeS9ga3lrsYJ2FX04gaREt3FKh9",
                 scope: "",
                 grant_type: "password",
             },
@@ -68,7 +68,7 @@ export default function Login(props) {
                         </div>
                         <form onSubmit={handleSubmit(getLogin)}>
                             <label>
-                                <h6 className='p-2'>Username</h6>
+                                <h6 className='p-2'>Email</h6>
                                 <input
                                     {...register("email", { required: true, minLength: 4, maxLength: 64 })}
                                     type="email"

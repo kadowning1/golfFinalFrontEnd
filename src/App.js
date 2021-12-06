@@ -58,7 +58,7 @@ function App() {
                     'Authorization': 'Bearer ' + token
                 }
             })
-                .then(response => setUserData(response.data))
+                .then(response => setUserData(response.data[0]))
         }
     }
 
@@ -87,6 +87,8 @@ function App() {
                                 <Route path="/group" element={<Group  token={token} userData={userData}/>} />
                                 <Route path="/joingroup" element={<JoinGroup token={token} userData={userData}/>} />
                                 <Route path="/team" element={<Team token={token} userData={userData}/>} />
+
+
                                 <Route path="/newuser" element={<NewUser saveToken={saveToken} token={token} />} />
                                 <Route path="/login" element={<Login saveToken={saveToken} token={token} />} />
                                 <Route path="/" element={<Home />} />

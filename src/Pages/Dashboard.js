@@ -53,7 +53,7 @@ export default function Dashboard(props) {
                     <Row className='justify-content-center'>
                         <Col lg={5}>
                             <h3>Team Selections</h3>
-                            <h3>{teamData?.data[0]?.attributes?.name}</h3>
+                            {/* <h3>{Object.keys(teamData?.data[0]?.attributes?.name)}</h3> */}
                             <Element className="element" id="scroll-container" style={{
                                 position: 'relative',
                                 height: '50vh',
