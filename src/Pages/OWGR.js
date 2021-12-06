@@ -6,14 +6,14 @@ import { Element } from 'react-scroll'
 export default function OWGR() {
     const [ranking, getRankings] = useState([])
 
-    // useEffect((data, event) => {
-    //     // event.preventDefault();
+    // useEffect((data) => {
+        
     //     axios({
     //         method: 'get',
     //         url: 'https://golf-leaderboard-data.p.rapidapi.com/world-rankings',
     //         headers: {
     //             'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
-    //             'x-rapidapi-key': '4e3ba61b86mshab04471da6fe79cp136b51jsnb7094541e457'
+    //             'x-rapidapi-key': ''
     //         },
     //     })
     //         .then(function (response) {

@@ -45,7 +45,7 @@ export default function CreateGroup(props) {
         .then(function (response) {
             // handle success
             console.log(response)
-            props.saveToken(response.data.access_token.token)
+            // props.saveToken(response.data.access_token.token)
             history.push('/login')
 
         })

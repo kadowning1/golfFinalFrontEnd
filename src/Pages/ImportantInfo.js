@@ -8,51 +8,51 @@ export default function ImportantInfo() {
     const [weather, getWeather] = useState([])
 
 
-    // useEffect(() => {
-    //     // event.preventDefault();
-    //     axios({
-    //         method: 'get',
-    //         url: 'https://golf-leaderboard-data.p.rapidapi.com/leaderboard/25',
-    //         headers: {
-    //             'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
-    //             'x-rapidapi-key': '4e3ba61b86mshab04471da6fe79cp136b51jsnb7094541e457'
-    //         },
-    //     })
-    //         .then(function (response) {
-    //             console.log('response received', response)
-    //             getLeaderboard(response.data)
-    //             // props.saveToken(response.data.access_token)
-    //         })
-    //         .catch(function (error) {
-    //             console.log({ error })
-    //         })
-    //         .then(function () {
+    useEffect(() => {
+        // event.preventDefault();
+        axios({
+            method: 'get',
+            url: 'https://golf-leaderboard-data.p.rapidapi.com/leaderboard/25',
+            headers: {
+                'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
+                'x-rapidapi-key': ''
+            },
+        })
+            .then(function (response) {
+                console.log('response received', response)
+                getLeaderboard(response.data)
+                // props.saveToken(response.data.access_token)
+            })
+            .catch(function (error) {
+                console.log({ error })
+            })
+            .then(function () {
 
-    //         })
-    // },
-    //     [])
+            })
+    },
+        [])
 
-    // useEffect(() => {
-    //     if (Object.keys(leaderboard).length > 0) {
+    useEffect(() => {
+        if (Object.keys(leaderboard).length > 0) {
 
-    //         axios({
-    //             method: 'get',
-    //             url: `https://api.openweathermap.org/data/2.5/weather?q=${leaderboard.results.tournament.country},us&appid=225e9979cafa7faa49ef4c637d23e637`,
-    //         })
-    //             .then(function (response) {
-    //                 console.log('response received', response)
-    //                 getWeather(response.data)
-    //                 // props.saveToken(response.data.access_token)
-    //             })
-    //             .catch(function (error) {
-    //                 console.log({ error })
-    //             })
-    //             .then(function () {
+            axios({
+                method: 'get',
+                url: `https://api.openweathermap.org/data/2.5/weather?q=${leaderboard.results.tournament.country},us&appid=225e9979cafa7faa49ef4c637d23e637`,
+            })
+                .then(function (response) {
+                    console.log('response received', response)
+                    getWeather(response.data)
+                    // props.saveToken(response.data.access_token)
+                })
+                .catch(function (error) {
+                    console.log({ error })
+                })
+                .then(function () {
 
-    //             })
-    //     }
-    // },
-    //     [leaderboard])
+                })
+        }
+    },
+        [leaderboard])
 
     const temp = weather?.main?.temp;
     const convert = (Math.round(1.8 * (temp - 273) + 32)) + 'ºF';
@@ -63,6 +63,7 @@ export default function ImportantInfo() {
             <tr key={index}>
                 <td>{data.position}</td>
                 <td>{data.first_name} {data.last_name}</td>
+                <td>{data.total_to_par}</td>
                 <td>{data.strokes}</td>
             </tr>
         )
@@ -70,7 +71,7 @@ export default function ImportantInfo() {
 
     return (
         <div>
-            <Container>
+            <Container fluid>
                 <Row>
                     <Col lg={5} className="text-center display-3">
                         Venue Information
@@ -113,6 +114,7 @@ export default function ImportantInfo() {
                                         <tr>
                                             <th>Postition</th>
                                             <th>Player</th>
+                                            <th>To Par</th>
                                             <th>Score</th>
                                         </tr>
                                     </thead>

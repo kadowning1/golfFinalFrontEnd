@@ -13,7 +13,7 @@ export default function Player(token, userData, props) {
             url: 'https://golf-leaderboard-data.p.rapidapi.com/entry-list/219',
             headers: {
                 'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
-                'x-rapidapi-key': '4e3ba61b86mshab04471da6fe79cp136b51jsnb7094541e457'
+                'x-rapidapi-key': '867b92cc92mshb16f3d6e206d6c7p1d5055jsn98f57c1ebf45'
             },
         })
             .then(function (response) {
@@ -31,10 +31,12 @@ export default function Player(token, userData, props) {
     },
         [])
 
-    const addToTeam = id => {
+    const addToTeam = (id) => {
         axios({
             method: "post",
-            data: { team_id: id },
+            data: {
+                team_id: id
+            },
             url: 'https://library-kadowning110103.codeanyapp.com/api/v1/addtoteam',
             headers: {
                 "Accept": "application/json",
@@ -69,17 +71,18 @@ export default function Player(token, userData, props) {
                         <Col>
                             <Card className="h-100">
                                 <Card.Body className="cardAlign">
-                                    <Card.Title>{data?.first_name} Ian Rios {data?.last_name}</Card.Title>
+                                    <Card.Title>{data?.first_name} {data?.last_name}</Card.Title>
                                     <Card.Text>{data?.country}</Card.Text>
-                                    {props.token.length > 0 ?
-                                        <Button
 
-                                            onClick={() =>
-                                                addToTeam(data.id)}
-                                            className="bg-success"
-                                        >
-                                            Add to Team
-                                        </Button> : null}
+
+                                    <Button
+
+                                        onClick={() =>
+                                            addToTeam(data.id)}
+                                        className="bg-success"
+                                    >
+                                        Add to Team
+                                        </Button>
                                 </Card.Body>
                             </Card>
                         </Col>

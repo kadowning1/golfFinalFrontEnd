@@ -14,6 +14,37 @@ export default function Team(props) {
 
     const history = useNavigate()
 
+    //get entry list with api call
+    // useEffect((data) => {
+
+    //     axios({
+    //         method: 'get',
+    //         url: 'https://golf-leaderboard-data.p.rapidapi.com/entry-list/219',
+    //         headers: {
+    //             'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
+    //             'x-rapidapi-key': '867b92cc92mshb16f3d6e206d6c7p1d5055jsn98f57c1ebf45'
+    //         },
+    //     })
+    //         .then(function (response) {
+    //             // console.log('response received', response)
+    //             const data = response.data.results.entry_list.map(g => ({ ...g, addedToTeam: false }))
+    //             console.log(data)
+    //             console.log(props.token)
+    //             setAPIData(data)
+    //             // props.saveToken(response.data.access_token)
+    //         })
+    //         .catch(function (error) {
+    //             console.log({ error })
+    //         })
+    //         .then(function () {
+
+    //         })
+    // },
+    //     [])
+
+
+    //call to add team name to db
+
     const createNewTeam = () => {
 
         const data = {
@@ -23,7 +54,7 @@ export default function Team(props) {
         // console.log(data)
         axios({
             method: 'post',
-            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/submitgroup',
+            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/submitteam',
             data,
             headers: {
                 'Accept': 'application/json',
@@ -53,43 +84,101 @@ export default function Team(props) {
             });
     }
 
-    // useEffect((data, event) => {
-    //     // event.preventDefault();
-    //     axios({
-    //         method: 'get',
-    //         url: 'https://golf-leaderboard-data.p.rapidapi.com/entry-list/219',
-    //         headers: {
-    //             'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
-    //             'x-rapidapi-key': '4e3ba61b86mshab04471da6fe79cp136b51jsnb7094541e457'
-    //         },
-    //     })
-    //         .then(function (response) {
-    //             // console.log('response received', response)
-    //             const data = response.data.results.entry_list.map(g => ({ ...g, addedToTeam: false }))
-    //             console.log(data)
-    //             setAPIData(data)
-    //             // props.saveToken(response.data.access_token)
-    //         })
-    //         .catch(function (error) {
-    //             console.log({ error })
-    //         })
-    //         .then(function () {
 
-    //         })
-    // },
-    //     [])
+      //call to remove golfer from team in db
+    const removeGolferTeam = () => {
 
+        const data = {
+            // eslint-disable-next-line no-undef
+            golfer_id: golfer_id,
+            // eslint-disable-next-line no-undef
+            // team_id: team_id
+        }
+
+
+        axios({
+            method: 'post',
+            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/addgolfer',
+            data,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+                'Access-Control-Allow-Credentials': true,
+                'Authorization': 'Bearer ' + props.token
+            },
+        }
+        )
+            // Make a request for a user with a given ID
+
+            .then(function (response) {
+                // handle success
+                
+                console.log(response)
+                setCurrentGolfers(response.data)
+                props.saveToken(response.data.access_token.token)
+                history.push('/login')
+
+            })
+            .catch(function (error) {
+                console.log({ error })
+            })
+            .then(function () {
+                // always executed
+            });
+    }
+
+
+    //call to add golfer from team in db
     const addGolfer = (id) => {
         if (6 - currentGolfers.length > 0) {
-            setAPIData(prevdata => {
-                return prevdata.map(prevgolfer => {
-                    let golfer = { ...prevgolfer }
-                    if (golfer.player_id === id) {
-                        golfer.addedToTeam = true;
-                    }
-                    return golfer
+            axios({
+                method: 'post',
+                url: 'https://library-kadowning110103.codeanyapp.com/api/v1/addgolfer',
+                data: {
+                    // eslint-disable-next-line no-undef
+                    golfer_id: id,
+                    // eslint-disable-next-line no-undef
+                    // team_id: team_id
+                },
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Content-Type',
+                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+                    'Access-Control-Allow-Credentials': true,
+                    'Authorization': 'Bearer ' + props.token
+                },
+            }
+            )
+                // Make a request for a user with a given ID
+
+                .then(function (response) {
+                    // handle success
+                    setAPIData(prevdata => {
+                        return prevdata.map(prevgolfer => {
+                            let golfer = { ...prevgolfer }
+                            if (golfer.player_id === id) {
+                                golfer.addedToTeam = true;
+                            }
+                            return golfer
+                        })
+                    })
+                    console.log(response)
+                    // setCurrentGolfers(response.data)
+                    props.saveToken(response.data.access_token.token)
+                    history.push('/login')
+
                 })
-            })
+                .catch(function (error) {
+                    console.log({ error })
+                })
+                .then(function () {
+                    // always executed
+                });
         }
     }
 
@@ -147,6 +236,7 @@ export default function Team(props) {
                                 <Card className="">
                                     {APIData.filter((golfer, index) => {
                                         // console.log(golfer)
+                                        // console.log(props.token)
                                         return !golfer.addedToTeam
                                     }).map((data, id) => (
                                         <Col key={id}>
