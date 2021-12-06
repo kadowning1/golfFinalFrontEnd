@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav, Button, NavDropdown } from 'react-bootstrap';
 
 export default function NavigationBar(props) {
 
@@ -33,24 +33,46 @@ export default function NavigationBar(props) {
         <nav className="navbar">
             <div className="container-fluid justify-content-center">
                 <div className='row'>
-                    <div className='col-12'>
+                    <div className='col-6'>
                         <Navbar variant="dark">
-                            <Container>
+                            
                                 <Navbar.Brand as={Link} to="/">Major Golf Pool</Navbar.Brand>
-                                <Nav className="me-auto">
+                                <Nav className="me-auto masters">
                                     {props.token.length === 0 ? <Nav.Link as={Link} to="/login">Login</Nav.Link> : null}
-                                    {props.token.length > 0 ? <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link> : null}
-                                    {props.token.length > 0 ? <Nav.Link as={Link} to="/creategroup">Create Group</Nav.Link> : null}
-                                    {props.token.length > 0 ? <Nav.Link as={Link} to="/joingroup">Join Group</Nav.Link> : null}
-                                    {props.token.length > 0 ? <Nav.Link as={Link} to="/group">View Group</Nav.Link> : null}
-                                    <Nav.Link as={Link} to="/rankings">World Golf Rankings</Nav.Link>
-                                    <Nav.Link as={Link} to="/player">Golfers This Week</Nav.Link>
+
                                     {props.token.length > 0 ? null : <Nav.Link as={Link} to="/newuser">New User</Nav.Link>}
-                                    {props.token.length > 0 ? <Nav.Link as={Link} to="/team">TeamPage</Nav.Link> : null}
-                                    {props.token.length > 0 ? <Nav.Link as={Link} to="/information">Information</Nav.Link> : null}
-                                    {props.token.length > 0 ? <Button variant="danger" onClick={logOut}>Logout</Button> : null}
+
+                                    {props.token.length > 0 ? <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link> : null}
+                                    {props.token.length > 0 ? <Nav.Link as={Link} to="/team">My Team</Nav.Link> : null}
+
+                                    {props.token.length > 0 ?
+                                    <NavDropdown title="Groups" id="basic-nav-dropdown">
+                                        <NavDropdown.Item>
+                                            {props.token.length > 0 ? <Link as={Link} to="/creategroup">Create Group</Link> : null}
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            {props.token.length > 0 ? <Link as={Link} to="/joingroup">Join Group</Link> : null}
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            {props.token.length > 0 ? <Link as={Link} to="/group">View Group</Link> : null}
+                                        </NavDropdown.Item>
+                                    </NavDropdown> : null}
+
+                                    <NavDropdown title="Golf Information" id="basic-nav-dropdown" className="masters">
+                                        <NavDropdown.Item>
+                                            {props.token.length > 0 ? <Link as={Link} to="/information">Leaderboard</Link> : null}
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            {props.token.length > 0 ? <Link as={Link} to="/player">Entry List</Link> : null}
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            {props.token.length > 0 ? <Link as={Link} to="/rankings">World Golf Rankings</Link> : null}
+                                        </NavDropdown.Item>
+                                    </NavDropdown>
+                                    
+                                    {props.token.length > 0 ? <Button variant="secondary" onClick={logOut}>Logout</Button> : null}
                                 </Nav>
-                            </Container>
+                        
                         </Navbar>
                     </div>
                 </div>

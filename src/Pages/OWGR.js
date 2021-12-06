@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Table } from 'react-bootstrap';
+import { Element } from 'react-scroll'
 
 export default function OWGR() {
     const [ranking, getRankings] = useState([])
@@ -28,21 +29,46 @@ export default function OWGR() {
     //         })
     // },
     //     [])
+
+    const worldRankings = ranking.results?.rankings?.map((data, index) => {
+        return (
+            <tr key={index}>
+                <td>{data.position}</td>
+                <td>{data.player_name}</td>
+            </tr>
+        )
+    })
+
+
     return (
         <div>
              <Container className="text-center display-3">
                 World Golf Rankings
                 <Row lg={12}>
-                    {ranking.results?.rankings?.map((data, id) => (
-                        <Col lg={12}>
-                            <Card className="">
-                                <Card.Body className="cardAlign">
-                                    <Card.Text>Postion:{data.position} </Card.Text>
-                                    <Card.Text>Player: {data.player_name}</Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    ))}
+                <Col lg={12}>
+                        <Element className="element" id="scroll-container" style={{
+                            position: 'relative',
+                            height: '50vh',
+                            overflow: 'scroll',
+                            marginBottom: '100px'
+                        }}>
+                            <Element name="scroll-container-first-element" style={{
+                                marginBottom: '200px'
+                            }}>
+                                <Table responsive className='stats'>
+                                    <thead>
+                                        <tr>
+                                            <th>Postition</th>
+                                            <th>Player</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {worldRankings}
+                                    </tbody>
+                                </Table>
+                            </Element>
+                        </Element>
+                    </Col>
                 </Row>
                 <br></br>
             </Container>

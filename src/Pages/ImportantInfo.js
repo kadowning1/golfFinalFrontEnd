@@ -108,7 +108,7 @@ export default function ImportantInfo() {
                             <Element name="scroll-container-first-element" style={{
                                 marginBottom: '200px'
                             }}>
-                                <Table responsive>
+                                <Table responsive className='stats'>
                                     <thead>
                                         <tr>
                                             <th>Postition</th>

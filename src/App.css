@@ -1,4 +1,4 @@
-html, body {
+html {
     background-color: #076652;
     background-repeat: repeat-y;
     height: 100%;
@@ -7,3 +7,7 @@ html, body {
 .masters {
     background-color: #076652;
 } 
+
+table.stats {
+    font-size: medium;
+}

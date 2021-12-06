@@ -19,10 +19,8 @@ export default function Login(props) {
             data: {
                 username: login.email,
                 password: login.password,
-                // email: "delphia.nitzsche@example.org",
-                // password: "changeme",
                 client_id: "2",
-                client_secret: "tQWD4cIlq1fG0TlUFEo6u20ODjynd7OtAhNHHXuH",
+                client_secret: "itom2ALG7nvdSxOtcxEvBMHPtUoQit8SpdZFkEFT",
                 scope: "",
                 grant_type: "password",
             },

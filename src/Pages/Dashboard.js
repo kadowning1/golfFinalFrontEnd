@@ -18,7 +18,8 @@ export default function Dashboard(props) {
                 <h3>Welcome {Object.keys(props.userData).length > 0 && props.userData.name}!</h3>
                 <br></br>
                 <div>
-                    <h4>Deadline to Submit Picks: {Date()}</h4>
+                    <h4>Deadline to Submit Picks: </h4>
+                    <h5>{Date()}</h5>
                 </div>
                 <br></br>
                 <Container>
@@ -55,19 +56,6 @@ export default function Dashboard(props) {
                         </Col>
                     </Row>
                 </Container>
-                <div className="container-fluid text-center">
-                    <div className='row'>
-                        <div className='col-12'>
-                            <Nav className="mr-auto">
-                                <Nav.Link as={Link} to="/dashboard" className="text-light">Dashboard</Nav.Link>
-                                <Nav.Link as={Link} to="/team" className="text-light">TeamView</Nav.Link>
-                                <Nav.Link as={Link} to="/group" className="text-light">GroupPage</Nav.Link>
-                                <Nav.Link as={Link} to="/information" className="text-light">Important Info</Nav.Link>
-                                <Nav.Link as={Link} to="/player" className="text-light">Players</Nav.Link>
-                            </Nav>
-                        </div>
-                    </div>
-                </div>
             </div>
     );
 }

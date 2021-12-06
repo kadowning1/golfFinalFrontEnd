@@ -19,6 +19,8 @@ import Home from './Pages/Home';
 // import { Navbar } from 'react-bootstrap';
 
 function App() {
+
+    //save token in storage
     const [token, setToken] = useState('');
 
     useEffect(() => {
@@ -27,12 +29,6 @@ function App() {
             setToken(lsToken)
         }
     }, [])
-
-    const setDeadline = () => {
-
-    };
-
-    setInterval(setDeadline, 1000);
 
     const saveToken = userToken => {
         localStorage.setItem('token', userToken);
@@ -44,40 +40,29 @@ function App() {
         setToken('')
     };
 
-
+    //save user data
     const [userData, setUserData] = useState({})
 
-    useEffect(() => {
+    const getUser = () => {
         if (token.length > 0) {
             axios({
-                method: 'get',
+                method: "get",
                 url: 'https://library-kadowning110103.codeanyapp.com/api/v1/user',
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "Content-Type",
+                    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+                    "Access-Control-Allow-Credentials": true,
                     'Authorization': 'Bearer ' + token
-                },
+                }
             })
-                // Make a request for a user with a given ID
-
-                .then(function (response) {
-                    // handle success
-                    // dashboardInfo()
-                    setUserData(response.data)
-                    console.log(response.data)
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(token)
-                    console.log(error);
-                })
-                .then(function () {
-                    // always executed
-                });
-            // eslint-disable-next-line react-hooks/exhaustive-deps
+                .then(response => setUserData(response.data))
         }
-    }, [token])
+    }
+
+    useEffect(getUser, [token]);
 
     return (
         <body className="masters text-center">
@@ -92,22 +77,23 @@ function App() {
                             <Routes>
                                 {/* no token needed for route */}
                                 <Route path="/information" element={<ImportantInfo />} />
-                                <Route path="/player" element={<Player />} />
                                 <Route path="/rankings" element={<OWGR />} />
 
+                                <Route path="/player" element={<Player token={token} userData={userData}/>} />
+
                                 {/* token needed for route */}
-                                <Route path="/creategroup" element={<CreateGroup token={token} />} />
+                                <Route path="/creategroup" element={<CreateGroup token={token} userData={userData}/>} />
                                 <Route path="/dashboard" element={<Dashboard token={token} userData={userData} />} />
-                                <Route path="/group" element={<Group  token={token} />} />
-                                <Route path="/joingroup" element={<JoinGroup token={token} />} />
-                                <Route path="/team" element={<Team token={token} />} />
+                                <Route path="/group" element={<Group  token={token} userData={userData}/>} />
+                                <Route path="/joingroup" element={<JoinGroup token={token} userData={userData}/>} />
+                                <Route path="/team" element={<Team token={token} userData={userData}/>} />
                                 <Route path="/newuser" element={<NewUser saveToken={saveToken} token={token} />} />
                                 <Route path="/login" element={<Login saveToken={saveToken} token={token} />} />
                                 <Route path="/" element={<Home />} />
                             </Routes>
-                            {/* <Footer
+                            <Footer
                                 removeToken={removeToken}
-                                token={token} /> */}
+                                token={token} />
                         </BrowserRouter>
                     </div>
                 </div>

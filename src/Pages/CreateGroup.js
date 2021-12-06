@@ -27,7 +27,7 @@ export default function CreateGroup(props) {
     // console.log(data)
     axios({
         method: 'post',
-        url: 'https://library-kadowning110103.codeanyapp.com/api/v1/submitteam',
+        url: 'https://library-kadowning110103.codeanyapp.com/api/v1/creategroup',
         data,
         headers: {
             'Accept': 'application/json',
