@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-import { Navigate, useNavigate } from 'react-router-dom';
-import {Container, Row, Col, Card } from 'react-bootstrap';
+import { Navigate } from 'react-router-dom';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import { Element } from 'react-scroll'
 
 
 export default function Dashboard(props) {
 
     const [teamData, setTeamData] = useState([])
-
-    const history = useNavigate()
 
     const getTeam = () => {
         axios({
@@ -24,7 +22,6 @@ export default function Dashboard(props) {
         })
             .then(function (response) {
                 setTeamData(response.data)
-                // history.push('/')
                 console.log(response)
 
             })
@@ -44,16 +41,10 @@ export default function Dashboard(props) {
                 <br></br>
                 <h3>Welcome {Object.keys(props.userData).length > 0 && props.userData.name}!</h3>
                 <br></br>
-                <div>
-                    <h4>Deadline to Submit Picks: </h4>
-                    <h5>{Date()}</h5>
-                </div>
-                <br></br>
                 <Container>
                     <Row className='justify-content-center'>
                         <Col lg={5}>
                             <h3>Team Selections</h3>
-                            {/* <h3>{Object.keys(teamData?.data[0]?.attributes?.name)}</h3> */}
                             <Element className="element" id="scroll-container" style={{
                                 position: 'relative',
                                 height: '50vh',
@@ -63,18 +54,22 @@ export default function Dashboard(props) {
                                 <Element name="scroll-container-first-element" style={{
                                     marginBottom: '200px'
                                 }}>
-                                    <Card className="">
+                                    {teamData.data?.map((data, id) => (
                                         <Col>
                                             <Card className="h-100">
                                                 <Card.Body className="cardAlign">
-                                                    {/* <Card.Title> {Object.keys(teamData?.data[0]?.attributes?.name)}
-                                                    </Card.Title> */}
+                                                    <Card.Title>{data?.attributes?.name}</Card.Title>
+                                                    <Card.Text>{data?.attributes?.score}</Card.Text>
                                                 </Card.Body>
                                             </Card>
                                         </Col>
-                                    </Card>
+                                    ))}
                                 </Element>
                             </Element>
+                            <div>
+                                <h4>Deadline to Submit Picks: </h4>
+                                <h5>{Date()}</h5>
+                            </div>
                         </Col>
                     </Row>
                 </Container>

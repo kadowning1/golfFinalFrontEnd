@@ -17,15 +17,15 @@ export default function Team(props) {
     useEffect((data) => {
 
         axios({
-            method: 'get',
+            method: 'GET',
             url: 'https://golf-leaderboard-data.p.rapidapi.com/entry-list/219',
             headers: {
                 'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
                 'x-rapidapi-key': '867b92cc92mshb16f3d6e206d6c7p1d5055jsn98f57c1ebf45'
-            },
+            }
         })
             .then(function (response) {
-                // console.log('response received', response)
+                console.log('response received', response)
                 // const data = response.data.results.entry_list.map(g =>{
 
                 //     props.user.team.team_golfers.map()
@@ -45,16 +45,14 @@ export default function Team(props) {
             .then(function () {
 
             })
-    },
-        [])
-
+    }, [])
 
     useDeepCompareEffect(() => {
         if (APIData && props.userData) {
             setAPIData(prevAPIData => {
-                let myGolfers = [];
+                let myGolfers = currentGolfers;
                 const newAPIData = prevAPIData.filter(apiGolfer => {
-                    let foundGolfer = props.userData.team.team_golfers.find(myGolfer => {
+                    let foundGolfer = props.userData?.team?.team_golfers.find(myGolfer => {
                         return myGolfer.id === apiGolfer.player_id
                     })
                     if (foundGolfer) {
@@ -195,29 +193,92 @@ export default function Team(props) {
 
 
             let myGolfers = [];
+            if (currentGolfers.length > 0) {
+                myGolfers = currentGolfers;
+            }
             setAPIData(prevAPIData => {
                 const newAPIData = prevAPIData.filter(apiGolfer => {
-                    // console.log(apiGolfer)
-                    // console.log(!!foundGolfer)
-
-                    if (id === apiGolfer.player_id) {
-                        myGolfers.push(apiGolfer)
-                        console.log('myGolfers.push(apiGolfer)', apiGolfer, myGolfers)
+                    let foundGolfer = myGolfers.find(myGolfer => myGolfer.player_id === apiGolfer.player_id)
+                    if (foundGolfer) {
                         return false
+                    } else {
+                        if (id === apiGolfer.player_id) {
+                            myGolfers.push(apiGolfer)
+                            return false
+                        }
                     }
+                    return apiGolfer
+                })
+                return newAPIData
+            })
 
-                    let foundGolfer = currentGolfers.find(myGolfer => myGolfer.player_id === apiGolfer.player_id)
+            setCurrentGolfers(prevCurrentGolfers => {
+                return myGolfers
+            })
+
+            // })
+            // .catch(function (error) {
+            //     console.log({ error })
+            // })
+            // .then(function () {
+            //     // always executed
+            // });
+        }
+    }
+
+
+    const removeGolfer = (id) => {
+        if (6 - currentGolfers.length > 0) {
+            // axios({
+            //     method: 'post',
+            //     url: 'https://library-kadowning110103.codeanyapp.com/api/v1/addgolfer',
+            //     data: {
+            //         // eslint-disable-next-line no-undef
+            //         golfer_id: id,
+            //         // eslint-disable-next-line no-undef
+            //         // team_id: team_id
+            //     },
+            //     headers: {
+            //         'Accept': 'application/json',
+            //         'Content-Type': 'application/json',
+            //         'Access-Control-Allow-Origin': '*',
+            //         'Access-Control-Allow-Headers': 'Content-Type',
+            //         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            //         'Access-Control-Allow-Credentials': true,
+            //         'Authorization': 'Bearer ' + props.token
+            //     },
+            // }
+            // )
+            //     // Make a request for a user with a given ID
+
+            //     .then(function (response) {
+            //         // handle success
+
+
+            let myGolfers = [];
+            if (currentGolfers.length > 0) {
+                myGolfers = currentGolfers;
+            }
+            setAPIData(prevAPIData => {
+                const newAPIData = prevAPIData.filter(apiGolfer => {
+                    let foundGolfer = myGolfers.find(myGolfer => myGolfer.player_id === apiGolfer.player_id)
                     if (foundGolfer) {
                         console.log('myGolfers.push(foundGolfer)')
-                        myGolfers.push(foundGolfer)
-                        return false
+                        myGolfers.pop(foundGolfer)
+                        return true
+                    } else {
+                        if (id === apiGolfer.player_id) {
+                            // myGolfers.pop(apiGolfer)
+                            console.log('myGolfers.push(apiGolfer)', apiGolfer, myGolfers)
+                            return false
+                        }
                     }
 
                     return apiGolfer
                 })
                 return newAPIData
             })
-            console.log(myGolfers)
+
             setCurrentGolfers(prevCurrentGolfers => {
                 // let newGolfers = prevCurrentGolfers
 
@@ -243,19 +304,6 @@ export default function Team(props) {
             //     // always executed
             // });
         }
-    }
-
-
-    const removeGolfer = (id) => {
-        setAPIData(prevdata => {
-            return prevdata.map(prevgolfer => {
-                let golfer = { ...prevgolfer }
-                if (golfer.player_id === id) {
-                    golfer.addedToTeam = false;
-                }
-                return golfer
-            })
-        })
     }
 
 
@@ -336,7 +384,7 @@ export default function Team(props) {
                             }}>
                                 <Card className="">
                                     {currentGolfers.map((data, id) => (
-                                        <Col key={id}>
+                                        <Col key="current + {id}">
                                             <Card className="h-100">
                                                 <Card.Body className="cardAlign">
                                                     <Card.Title> {data.first_name} {data.last_name}

@@ -12,7 +12,7 @@ export default function ImportantInfo() {
         // event.preventDefault();
         axios({
             method: 'get',
-            url: 'https://golf-leaderboard-data.p.rapidapi.com/leaderboard/25',
+            url: 'https://golf-leaderboard-data.p.rapidapi.com/leaderboard/219',
             headers: {
                 'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
                 'x-rapidapi-key': ''

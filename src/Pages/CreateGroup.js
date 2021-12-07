@@ -21,8 +21,8 @@ export default function CreateGroup(props) {
   const createNewGroup = () => {
 
     const data = {
-        creator: groupName.creator,
         name: groupName.name,
+        user_id: groupName.user_id,
     }
     // console.log(data)
     axios({

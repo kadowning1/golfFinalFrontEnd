@@ -4,8 +4,8 @@ import { Element } from 'react-scroll'
 import axios from 'axios';
 
 export default function Group(props) {
-    const [groupStandings, setGroupStandings] = useState([])
 
+    const [groupStandings, setGroupStandings] = useState([])
 
     useEffect((data) => {
 
@@ -23,12 +23,16 @@ export default function Group(props) {
                     'Authorization': 'Bearer ' + props.token
                 }
             })
-                .then(response => 
-                    setGroupStandings(response.data)
-                    )
-        }
-    },
-        [])
+            .then(function (response) {
+                // handle success
+                console.log(response)
+                setGroupStandings(response.data)
+    
+            })
+            .catch(function (error) {
+                console.log({ error })
+            })
+    }}, [])
 
     return (
         <div>
@@ -46,12 +50,12 @@ export default function Group(props) {
                             <Element name="scroll-container-first-element" style={{
                                 marginBottom: '200px'
                             }}>
-                                {groupStandings.map((data, id) => (
+                                {groupStandings.data?.map((data, id) => (
                                     <Col>
                                         <Card className="h-100">
                                             <Card.Body className="cardAlign">
-                                                <Card.Title>{data?.team_name}</Card.Title>
-                                                <Card.Text>{data?.score}</Card.Text>
+                                                <Card.Title>{data?.attributes?.name}</Card.Title>
+                                                <Card.Text>{data?.attributes?.user_id}</Card.Text>
                                             </Card.Body>
                                         </Card>
                                     </Col>
