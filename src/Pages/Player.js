@@ -55,8 +55,6 @@ export default function Player(token, userData, props) {
     }
 
     return (
-        // console.log(APIData),
-
         <div>
             <Container>
                 <Row>
@@ -74,14 +72,10 @@ export default function Player(token, userData, props) {
                                 <Card.Body className="cardAlign">
                                     <Card.Title>{data?.first_name} {data?.last_name}</Card.Title>
                                     <Card.Text>{data?.country}</Card.Text>
-
-
                                     <Button
-
                                         onClick={() =>
                                             addToTeam(data.id)}
-                                        className="bg-success"
-                                    >
+                                        className="bg-success">
                                         Add to Team
                                         </Button>
                                 </Card.Body>
@@ -90,7 +84,6 @@ export default function Player(token, userData, props) {
                     ))}
                 </Row>
             </Container>
-
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import { Container, Col, Row, Card } from 'react-bootstrap';
+import { Element } from 'react-scroll'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Element } from 'react-scroll'
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { useDeepCompareEffect } from 'react-use';
@@ -9,7 +9,7 @@ import { useDeepCompareEffect } from 'react-use';
 export default function Team(props) {
     const [APIData, setAPIData] = useState([])
     const [currentGolfers, setCurrentGolfers] = useState([])
-    const [teamName, setTeamName] = useState('')
+    const [teamName, setTeamName] = useState({})
 
     const history = useNavigate()
 
@@ -105,7 +105,7 @@ export default function Team(props) {
                 // handle success
                 console.log(response)
                 // props.saveToken(response.data.access_token.token)
-                // history.push('/login')
+                // history.push('/dashboard')
 
             })
             .catch(function (error) {
@@ -228,91 +228,94 @@ export default function Team(props) {
 
 
     const removeGolfer = (id) => {
-        if (6 - currentGolfers.length > 0) {
-            // axios({
-            //     method: 'post',
-            //     url: 'https://library-kadowning110103.codeanyapp.com/api/v1/addgolfer',
-            //     data: {
-            //         // eslint-disable-next-line no-undef
-            //         golfer_id: id,
-            //         // eslint-disable-next-line no-undef
-            //         // team_id: team_id
-            //     },
-            //     headers: {
-            //         'Accept': 'application/json',
-            //         'Content-Type': 'application/json',
-            //         'Access-Control-Allow-Origin': '*',
-            //         'Access-Control-Allow-Headers': 'Content-Type',
-            //         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-            //         'Access-Control-Allow-Credentials': true,
-            //         'Authorization': 'Bearer ' + props.token
-            //     },
-            // }
-            // )
-            //     // Make a request for a user with a given ID
+        // axios({
+        //     method: 'post',
+        //     url: 'https://library-kadowning110103.codeanyapp.com/api/v1/addgolfer',
+        //     data: {
+        //         // eslint-disable-next-line no-undef
+        //         golfer_id: id,
+        //         // eslint-disable-next-line no-undef
+        //         // team_id: team_id
+        //     },
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json',
+        //         'Access-Control-Allow-Origin': '*',
+        //         'Access-Control-Allow-Headers': 'Content-Type',
+        //         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        //         'Access-Control-Allow-Credentials': true,
+        //         'Authorization': 'Bearer ' + props.token
+        //     },
+        // }
+        // )
+        //     // Make a request for a user with a given ID
 
-            //     .then(function (response) {
-            //         // handle success
+        //     .then(function (response) {
+        //         // handle success
 
 
-            let myGolfers = [];
-            if (currentGolfers.length > 0) {
-                myGolfers = currentGolfers;
-            }
-            setAPIData(prevAPIData => {
-                const newAPIData = prevAPIData.filter(apiGolfer => {
-                    let foundGolfer = myGolfers.find(myGolfer => myGolfer.player_id === apiGolfer.player_id)
-                    if (foundGolfer) {
-                        console.log('myGolfers.push(foundGolfer)')
-                        myGolfers.pop(foundGolfer)
-                        return true
-                    } else {
-                        if (id === apiGolfer.player_id) {
-                            // myGolfers.pop(apiGolfer)
-                            console.log('myGolfers.push(apiGolfer)', apiGolfer, myGolfers)
-                            return false
-                        }
-                    }
+        let newApiData = [...APIData];
 
-                    return apiGolfer
-                })
-                return newAPIData
-            })
+        setCurrentGolfers(prevCurrentGolfers => {
+            const newCurrentGolferData = prevCurrentGolfers.filter(currentGolfer => {
 
-            setCurrentGolfers(prevCurrentGolfers => {
-                // let newGolfers = prevCurrentGolfers
+                if (currentGolfer.player_id === id) {
+                    newApiData.push(currentGolfer)
+                    return false
+                }
+                return true
 
-                // const golfer = {
-                //     country: 'usa',
-                //     last_name: "rios",
-                //     first_name: "ian",
-                //     player_id: 12341534
+                // let foundGolfer = prevCurrentGolfers.find(myGolfer => myGolfer.player_id === apiGolfer.player_id)
+                // if (foundGolfer) {
+                //     console.log('myGolfers.push(foundGolfer)')
+                //     // newCurrentGolferData.splice(foundGolfer, 1)
+                //     newApiData.push(foundGolfer)
+                //     fG = foundGolfer
+                //     return false
                 // }
-
-                return myGolfers
+                // return apiGolfer
             })
-            // console.log(response)
-            // setCurrentGolfers(response.data)
-            // props.saveToken(response.data.access_token.token)
-            // history.push('/login')
+            return newCurrentGolferData
+        })
 
-            // })
-            // .catch(function (error) {
-            //     console.log({ error })
-            // })
-            // .then(function () {
-            //     // always executed
-            // });
-        }
+
+
+        setAPIData(prevAPIData => {
+            return newApiData.filter((elem, index, self) => self.findIndex(
+                t => { return (t.player_id === elem.player_id) }) === index)
+
+        })
+        // setAPIData(prevAPIData => {
+        //     const newAPIData = prevAPIData.filter(apiGolfer => {
+        //         let foundGolfer = myGolfers.findIndex(myGolfer => myGolfer.player_id === apiGolfer.player_id)
+        //         if (foundGolfer >= 0) {
+        //             console.log('myGolfers.push(foundGolfer)')
+        //             myGolfers.splice(foundGolfer, 1)
+        //         } else {
+        //             if (id === apiGolfer.player_id) {
+        //                 // myGolfers.pop(apiGolfer)
+        //                 console.log('myGolfers.push(apiGolfer)', apiGolfer, myGolfers)
+        //                 return false
+        //             }
+        //         }
+        //         return apiGolfer
+        //     })
+        //     return newAPIData
+        // })
+
+        // setCurrentGolfers(prevCurrentGolfers => {
+        //     return myGolfers
+        // })
+
+        // })
+        // .catch(function (error) {
+        //     console.log({ error })
+        // })
+        // .then(function () {
+        //     // always executed
+        // });
+
     }
-
-
-    // useEffect(addGolfer, removeGolfer, [APIData]);
-
-
-    // useEffect(() => setCurrentGolfers(APIData.filter((golfer, index) => {
-    //     return golfer.addedToTeam
-    // })), [APIData])
 
     const objectAssistant = e => {
         return setTeamName(previousState => ({ ...previousState, [e.target.name]: e.target.value }), [])
@@ -321,21 +324,19 @@ export default function Team(props) {
     return (
         <Container className="text-center display-3">
             <form onSubmit={updateTeamName}>
-                Select Your Team
+                Pick Your Team
             <Row>
                     <Col lg={12}>
                         <label>
                             <h3 className='p-2'>TeamName</h3>
                             <input
                                 type="name"
-                                name="teamname"
-                                id='teamname'
-                                value={teamName.teamName}
+                                name="name"
+                                id='name'
+                                value={teamName.name}
                                 onChange={objectAssistant}
                             />
                         </label>
-
-
                         <h2 className="p-4">Selections Left: {6 - currentGolfers.length}</h2>
                     </Col>
                     <Col lg={5}>
@@ -350,22 +351,24 @@ export default function Team(props) {
                                 marginBottom: '200px'
                             }}>
                                 <Card className="">
-                                    {APIData.map((data, id) => (
-                                        <Col key={id}>
-                                            <Card className="h-100">
-                                                <Card.Body className="cardAlign">
-                                                    <Card.Title>{data.first_name} {data.last_name}
-                                                        <button
-                                                            type="button"
-                                                            className="btn btn-rounded mx-auto bg-secondary text-white h-100 d-flex align-items-center"
-                                                            onClick={() => addGolfer(data.player_id)}>
-                                                            <i className="fas fa-plus"></i>
-                                                        </button>
-                                                    </Card.Title>
-                                                </Card.Body>
-                                            </Card>
-                                        </Col>
-                                    ))}
+                                    {APIData
+                                        .sort((a, b) => ((a.last_name < b.last_name) ? -1 : 0))
+                                        .map((data, id) => (
+                                            <Col key={id}>
+                                                <Card className="h-100">
+                                                    <Card.Body className="cardAlign">
+                                                        <Card.Title>{data.first_name} {data.last_name}
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-rounded mx-auto bg-secondary text-white h-100 d-flex align-items-center"
+                                                                onClick={() => addGolfer(data.player_id)}>
+                                                                <i className="fas fa-plus"></i>
+                                                            </button>
+                                                        </Card.Title>
+                                                    </Card.Body>
+                                                </Card>
+                                            </Col>
+                                        ))}
                                 </Card>
                             </Element>
                         </Element>
@@ -383,22 +386,24 @@ export default function Team(props) {
                                 marginBottom: '200px'
                             }}>
                                 <Card className="">
-                                    {currentGolfers.map((data, id) => (
-                                        <Col key="current + {id}">
-                                            <Card className="h-100">
-                                                <Card.Body className="cardAlign">
-                                                    <Card.Title> {data.first_name} {data.last_name}
-                                                        <button
-                                                            type="button"
-                                                            className="btn btn-rounded mx-auto bg-secondary text-white h-100 d-flex align-items-center"
-                                                            onClick={() => removeGolfer(data.player_id)}>
-                                                            <i className="fas fa-minus"></i>
-                                                        </button>
-                                                    </Card.Title>
-                                                </Card.Body>
-                                            </Card>
-                                        </Col>
-                                    ))}
+                                    {currentGolfers
+                                        .sort((a, b) => ((a.last_name < b.last_name) ? -1 : 0))
+                                        .map((data, id) => (
+                                            <Col key={id}>
+                                                <Card className="h-100">
+                                                    <Card.Body className="cardAlign">
+                                                        <Card.Title> {data.first_name} {data.last_name}
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-rounded mx-auto bg-secondary text-white h-100 d-flex align-items-center"
+                                                                onClick={() => removeGolfer(data.player_id)}>
+                                                                <i className="fas fa-minus"></i>
+                                                            </button>
+                                                        </Card.Title>
+                                                    </Card.Body>
+                                                </Card>
+                                            </Col>
+                                        ))}
                                 </Card>
                             </Element>
                         </Element>

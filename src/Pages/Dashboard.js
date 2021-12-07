@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { Navigate } from 'react-router-dom';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import { Element } from 'react-scroll'
+import { Element } from 'react-scroll';
 
 
 export default function Dashboard(props) {
@@ -33,6 +33,8 @@ export default function Dashboard(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(getTeam, []);
 
+    const DATE_OPTIONS = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+
     return (
         props.token.length === 0 ?
             <Navigate to='/login' /> :
@@ -41,10 +43,11 @@ export default function Dashboard(props) {
                 <br></br>
                 <h3>Welcome {Object.keys(props.userData).length > 0 && props.userData.name}!</h3>
                 <br></br>
+                <h4>Group Name Here</h4>
                 <Container>
-                    <Row className='justify-content-center'>
+                    <Row className='justify-content-center p-3'>
                         <Col lg={5}>
-                            <h3>Team Selections</h3>
+                            <h3 className='justify-content-center p-3'>Team Selections</h3>
                             <Element className="element" id="scroll-container" style={{
                                 position: 'relative',
                                 height: '50vh',
@@ -68,7 +71,7 @@ export default function Dashboard(props) {
                             </Element>
                             <div>
                                 <h4>Deadline to Submit Picks: </h4>
-                                <h5>{Date()}</h5>
+                                <h5>{(new Date()).toLocaleDateString('en-US', DATE_OPTIONS)}</h5>
                             </div>
                         </Col>
                     </Row>

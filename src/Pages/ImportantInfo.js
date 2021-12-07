@@ -9,7 +9,7 @@ export default function ImportantInfo() {
 
 
     useEffect(() => {
-        // event.preventDefault();
+
         axios({
             method: 'get',
             url: 'https://golf-leaderboard-data.p.rapidapi.com/leaderboard/219',
@@ -21,12 +21,9 @@ export default function ImportantInfo() {
             .then(function (response) {
                 console.log('response received', response)
                 getLeaderboard(response.data)
-                // props.saveToken(response.data.access_token)
+
             })
             .catch(function (error) {
-                console.log({ error })
-            })
-            .then(function () {
 
             })
     },

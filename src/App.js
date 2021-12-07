@@ -65,11 +65,11 @@ function App() {
     useEffect(getUser, [token]);
 
     return (
-        <body className="masters text-center">
-            <div className="container">
-                <div classname="row">
-                    <div classname="col-12">
-                        <h1>Major Golf Pool</h1>
+        <body className="masters text-center p-3">
+            <div className="container p-2">
+                <div className="row">
+                    <div className="col-12">
+                        {/* <h1>Major Golf Pool</h1> */}
                         <BrowserRouter>
                             <NavigationBar
                                 removeToken={removeToken}

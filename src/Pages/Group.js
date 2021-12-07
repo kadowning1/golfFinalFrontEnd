@@ -37,7 +37,9 @@ export default function Group(props) {
     return (
         <div>
             <h1>Group Standings</h1>
-            <Container className='justify-content-center'>
+            <br></br>
+            <h1>Group Name</h1>
+            <Container className='justify-content-center p-2'>
                 <Row className='justify-content-center'>
                     <Col lg={5}>
                         
