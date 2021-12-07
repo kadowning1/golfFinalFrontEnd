@@ -1,17 +1,15 @@
-import { Container, Col, Row, Card } from 'react-bootstrap'
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import { Container, Col, Row, Card } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Element } from 'react-scroll'
 import Button from 'react-bootstrap/Button';
-import { useNavigate, Navigate } from 'react-router-dom';
-import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 import { useDeepCompareEffect } from 'react-use';
 
 export default function Team(props) {
     const [APIData, setAPIData] = useState([])
     const [currentGolfers, setCurrentGolfers] = useState([])
     const [teamName, setTeamName] = useState('')
-    const { register, formState: { errors }, handleSubmit, } = useForm();
 
     const history = useNavigate()
 
@@ -36,7 +34,7 @@ export default function Team(props) {
 
 
                 // })
-                console.log(data)
+                // console.log(data)
                 console.log(props.token)
                 setAPIData(response.data.results.entry_list)
                 // props.saveToken(response.data.access_token)
@@ -261,12 +259,12 @@ export default function Team(props) {
     }
 
 
-    useEffect(addGolfer, removeGolfer, [APIData]);
+    // useEffect(addGolfer, removeGolfer, [APIData]);
 
 
-    useEffect(() => setCurrentGolfers(APIData.filter((golfer, index) => {
-        return golfer.addedToTeam
-    })), [APIData])
+    // useEffect(() => setCurrentGolfers(APIData.filter((golfer, index) => {
+    //     return golfer.addedToTeam
+    // })), [APIData])
 
     const objectAssistant = e => {
         return setTeamName(previousState => ({ ...previousState, [e.target.name]: e.target.value }), [])
@@ -274,7 +272,7 @@ export default function Team(props) {
 
     return (
         <Container className="text-center display-3">
-            <form onSubmit={handleSubmit(updateTeamName)}>
+            <form onSubmit={updateTeamName}>
                 Select Your Team
             <Row>
                     <Col lg={12}>

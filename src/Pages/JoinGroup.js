@@ -13,10 +13,6 @@ export default function JoinGroup(props) {
   const [groupName, setGroupName] = useState('')
 
   const { register, formState: { errors }, handleSubmit, } = useForm();
-  const history = useNavigate()
-  // const onSubmit = (data, event) => console.log(data, event);
-
-  // console.log(watch(login))
 
   const joinGroup = () => {
 
@@ -39,15 +35,11 @@ export default function JoinGroup(props) {
         },
     }
     )
-        // Make a request for a user with a given ID
-
+        
         .then(function (response) {
             // handle success
             console.log(response)
             setGroupName(data.response)
-            // props.saveToken(response.data.access_token.token)
-            // history.push('/login')
-
         })
         .catch(function (error) {
             console.log({ error })
@@ -61,7 +53,6 @@ export default function JoinGroup(props) {
     return setLogin(previousState => ({ ...previousState, [e.target.name]: e.target.value }), [])
   }
 
-  // console.log({ login })
   return (
     <div className='container'>
       <div className='row'>

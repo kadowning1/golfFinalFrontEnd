@@ -8,6 +8,7 @@ export default function Login(props) {
 
     const [login, setLogin] = useState({})
     const [error, setError] = useState('')
+    const required = "This field is required";
 
     const { register, formState: { errors }, handleSubmit, } = useForm();
 
@@ -41,7 +42,12 @@ export default function Login(props) {
                 props.saveToken(response.data.access_token)
             })
             .catch(function (error) {
-                console.log({ error })
+                console.log(error.error_description)
+                // if (error.response?.error?.message) {
+                //     setError(error.response?.error?.message)
+                // } else {
+                //     setError(error.response?.error?.message.toUpperCase())
+                // }
             })
             .then(function () {
             });
@@ -99,8 +105,8 @@ export default function Login(props) {
                             <div className='p-3'>
                                 <Link as={Link} to="/newuser" className="btn btn-secondary">New User</Link>
                             </div>
-                            {/* <p>{error.message}</p> */}
-                            {error.length > 0 ? <h4 className='text-danger'>{error}</h4> : null}
+                            {/* <p>{setError(required)}</p> */}
+                            {/* {error.length > 0 ? <h4 className='text-danger'>{error}</h4> : null} */}
                         </form>
                     </div>
                 </div>
