@@ -43,6 +43,7 @@ export default function Login(props) {
             })
             .catch(function (error) {
                 console.log(error.error_description)
+                setError('Please Check User Credentials')
                 // if (error.response?.error?.message) {
                 //     setError(error.response?.error?.message)
                 // } else {
@@ -105,8 +106,7 @@ export default function Login(props) {
                             <div className='p-3'>
                                 <Link as={Link} to="/newuser" className="btn btn-secondary">New User</Link>
                             </div>
-                            {/* <p>{setError(required)}</p> */}
-                            {/* {error.length > 0 ? <h4 className='text-danger'>{error}</h4> : null} */}
+                            <p>{error.length > 0 ? <h4 className='text-danger'>{error}</h4> : null}</p>
                         </form>
                     </div>
                 </div>

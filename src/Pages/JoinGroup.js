@@ -1,17 +1,45 @@
-import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import { Container, Col, Row, Card } from 'react-bootstrap';
+import { Col, Card } from 'react-bootstrap';
 import { Element } from 'react-scroll'
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { useNavigate, Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 export default function JoinGroup(props) {
 
     const [error, setError] = useState('')
-    const [groupName, setGroupName] = useState({})
+    const [groupData, setGroupData] = useState([])
 
     const { register, formState: { errors }, handleSubmit, } = useForm();
+
+    useEffect((data) => {
+
+        if (props.token.length > 0) {
+            axios({
+                method: "get",
+                url: 'https://library-kadowning110103.codeanyapp.com/api/v1/group',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "Content-Type",
+                    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+                    "Access-Control-Allow-Credentials": true,
+                    'Authorization': 'Bearer ' + props.token
+                }
+            })
+                .then(function (response) {
+                    // handle success
+                    console.log(response)
+                    setGroupData(response.data)
+
+                })
+                .catch(function (error) {
+                    console.log({ error })
+                })
+        }
+    }, [])
 
     const joinGroup = () => {
 
@@ -20,8 +48,8 @@ export default function JoinGroup(props) {
         // }
         // console.log(data)
         axios({
-            method: 'get',
-            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/group',
+            method: 'post',
+            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/joingroup',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -37,7 +65,7 @@ export default function JoinGroup(props) {
             .then(function (response) {
                 // handle success
                 console.log(response)
-                setGroupName(response.data)
+                setGroupData(response.data)
             })
             .catch(function (error) {
                 console.log({ error })
@@ -47,41 +75,40 @@ export default function JoinGroup(props) {
             });
     }
 
-    const objectAssistant = e => {
-        return setGroupName(previousState => ({ ...previousState, [e.target.name]: e.target.value }), [])
-    }
-
+    console.log(groupData)
     return (
-        <div className='container'>
-            <div className='row'>
+        props.token.length === 0 ?
+            <Navigate to='/login' /> :
+        <div className='container justify-content-center'>
+            <div className='row justify-content-center'>
                 <div className="col text-center">
-
                     <h3>Join a Group!</h3>
-
+                    <br></br>
                     <Col lg={5}>
-                        <h3>Current Selections</h3>
+                        <h3>Groups Available</h3>
+                        <br></br>
                         <Element className="element" id="scroll-container" style={{
                             position: 'relative',
                             height: '50vh',
                             overflow: 'scroll',
-                            marginBottom: '100px'
+                            marginBottom: '50px'
                         }}>
                             <Element name="scroll-container-first-element" style={{
-                                marginBottom: '200px'
+                                marginBottom: '0px'
                             }}>
                                 <Card className="">
-                                    {groupName.map((data, id) => (
-                                        <Col key="current + {id}">
+                                    {groupData.data?.map((data, id) => (
+                                        <Col key={id}>
                                             <Card className="h-100">
                                                 <Card.Body className="cardAlign">
-                                                    <Card.Title> {data.first_name} {data.last_name}
-                                                        <button
-                                                            type="button"
-                                                            className="btn btn-rounded mx-auto bg-secondary text-white h-100 d-flex align-items-center"
-                                                            onClick={() => joinGroup}>
-                                                            Join this Group!
-                                                        </button>
+                                                    <Card.Title> {data.attributes?.name}
                                                     </Card.Title>
+                                                    <Button
+                                                        onClick={() =>
+                                                            joinGroup(data.id)}
+                                                        className="bg-success">
+                                                        Join Group!
+                                        </Button>
                                                 </Card.Body>
                                             </Card>
                                         </Col>

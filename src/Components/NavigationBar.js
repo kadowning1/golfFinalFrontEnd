@@ -35,7 +35,7 @@ export default function NavigationBar(props) {
                 <Navbar variant="dark" expand="lg" className='text-center back'>
 
                     <Navbar.Brand as={Link} to="/">Major Golf Pool</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Toggle id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto masters">
                             {props.token.length === 0 ? <Nav.Link as={Link} to="/login">Login</Nav.Link> : null}
@@ -55,7 +55,7 @@ export default function NavigationBar(props) {
                                         {props.token.length > 0 ? <Link as={Link} to="/group">View Group</Link> : null}
                                     </NavDropdown.Item>
                                 </NavDropdown> : null}
-
+                                {props.token.length > 0 ?
                             <NavDropdown title="Golf Information" id="basic-nav-dropdown" className="masters">
                                 <NavDropdown.Item>
                                     {props.token.length > 0 ? <Link as={Link} to="/information">Leaderboard</Link> : null}
@@ -66,7 +66,7 @@ export default function NavigationBar(props) {
                                 <NavDropdown.Item>
                                     {props.token.length > 0 ? <Link as={Link} to="/rankings">World Golf Rankings</Link> : null}
                                 </NavDropdown.Item>
-                            </NavDropdown>
+                            </NavDropdown> : null}
                             {props.token.length > 0 ? <Button variant="secondary" onClick={logOut}>Logout</Button> : null}
                         </Nav>
                     </Navbar.Collapse>

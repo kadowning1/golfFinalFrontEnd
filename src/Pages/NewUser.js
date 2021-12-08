@@ -49,6 +49,7 @@ export default function NewUser(props) {
       })
       .catch(function (error) {
         console.log({ error })
+        setError('Please Check User Credentials')
       })
       .then(function () {
         // always executed

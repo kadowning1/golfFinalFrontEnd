@@ -60,34 +60,34 @@ export default function CreateGroup(props) {
 
     // console.log({ login })
     return (
-        <div className='container'>
-            <div className='row'>
-                <div className="col text-center">
-
-                    <h3>Create Your Group!</h3>
-
-                    <form onSubmit={createNewGroup}>
-                        <label>
-                            <h6 className='p-2'>Group Name</h6>
-                            <input
-                                {...register("name", { required: true, minLength: 8, maxLength: 64 })}
-                                type="name"
-                                name='name'
-                                value={groupName.name}
-                                onChange={objectAssistant}
-                                id='name'
-                            />
-                            {errors.password && <h4 className='text-danger'>Group is invalid.</h4>}
-                        </label>
-                        <br></br>
-                        <div className='p-3'>
-                            <Button type="submit" variant="secondary" size='lg'>Submit Group</Button>{' '}
-                        </div>
-                        {/* <p>{error.message}</p> */}
-                        {error.length > 0 ? <h4 className='text-danger'>{error}</h4> : null}
-                    </form>
+        props.token.length === 0 ?
+            <Navigate to='/login' /> :
+            <div className='container'>
+                <div className='row'>
+                    <div className="col text-center">
+                        <h3>Create Your Group!</h3>
+                        <form onSubmit={createNewGroup}>
+                            <label>
+                                <h6 className='p-2'>Group Name</h6>
+                                <input
+                                    {...register("name", { required: true, minLength: 8, maxLength: 64 })}
+                                    type="name"
+                                    name='name'
+                                    value={groupName.name}
+                                    onChange={objectAssistant}
+                                    id='name'
+                                />
+                                {errors.password && <h4 className='text-danger'>Group is invalid.</h4>}
+                            </label>
+                            <br></br>
+                            <div className='p-3'>
+                                <Button type="submit" variant="secondary" size='lg'>Submit Group</Button>{' '}
+                            </div>
+                            {/* <p>{error.message}</p> */}
+                            {error.length > 0 ? <h4 className='text-danger'>{error}</h4> : null}
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
     )
 }

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Element } from 'react-scroll'
+import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Group(props) {
 
     const [groupStandings, setGroupStandings] = useState([])
+    const [groupName, setGroupName] = useState({})
 
     useEffect((data) => {
 
@@ -23,18 +25,56 @@ export default function Group(props) {
                     'Authorization': 'Bearer ' + props.token
                 }
             })
+                .then(function (response) {
+                    // handle success
+                    console.log(response)
+                    setGroupStandings(response.data)
+
+                })
+                .catch(function (error) {
+                    console.log({ error })
+                })
+        }
+    }, [])
+
+
+    const joinGroup = () => {
+
+        // const data = {
+        //     name: groupName.name
+        // }
+        // console.log(data)
+        axios({
+            method: 'get',
+            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/group',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+                'Access-Control-Allow-Credentials': true,
+                'Authorization': 'Bearer ' + props.token
+            },
+        }
+        )
+
             .then(function (response) {
                 // handle success
                 console.log(response)
-                setGroupStandings(response.data)
-    
+                setGroupName(response.data)
             })
             .catch(function (error) {
                 console.log({ error })
             })
-    }}, [])
+            .then(function () {
+                // always executed
+            });
+    }
 
     return (
+        props.token.length === 0 ?
+            <Navigate to='/login' /> :
         <div>
             <h1>Group Standings</h1>
             <br></br>
@@ -42,22 +82,22 @@ export default function Group(props) {
             <Container className='justify-content-center p-2'>
                 <Row className='justify-content-center'>
                     <Col lg={5}>
-                        
+
                         <Element className="element" id="scroll-container" style={{
                             position: 'relative',
                             height: '50vh',
                             overflow: 'scroll',
-                            marginBottom: '100px'
+                            marginBottom: '50px'
                         }}>
                             <Element name="scroll-container-first-element" style={{
-                                marginBottom: '200px'
+                                marginBottom: '0px'
                             }}>
                                 {groupStandings.data?.map((data, id) => (
                                     <Col>
                                         <Card className="h-100">
                                             <Card.Body className="cardAlign">
-                                                <Card.Title>{data?.attributes?.name}</Card.Title>
-                                                <Card.Text>{data?.attributes?.user_id}</Card.Text>
+                                                <Card.Title>Team Name:{data?.attributes?.name}</Card.Title>
+                                                <Card.Text>Score: {data?.attributes?.user_id}</Card.Text>
                                             </Card.Body>
                                         </Card>
                                     </Col>
