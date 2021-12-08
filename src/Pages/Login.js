@@ -21,7 +21,7 @@ export default function Login(props) {
                 username: login.email,
                 password: login.password,
                 client_id: "2",
-                client_secret: "x0ILPmQXncB80LSO7RCq6GYUMQ1aDSPQS24pLBB8",
+                client_secret: "j46qtfBJ2RgRuPMBSfEUEfrRFSttG9CgSPsDDHpQ",
                 scope: "",
                 grant_type: "password",
             },
@@ -81,7 +81,7 @@ export default function Login(props) {
                                     type="email"
                                     name="email"
                                     id='email'
-                                    value={login.username}
+                                    value={login.email||''}
                                     onChange={objectAssistant}
                                 />
                                 {errors.email && <h4 className='text-danger'>Email is invalid.</h4>}
@@ -93,7 +93,7 @@ export default function Login(props) {
                                     {...register("password", { required: true, minLength: 8, maxLength: 64 })}
                                     type="password"
                                     name='password'
-                                    value={login.password}
+                                    value={login.password||''}
                                     onChange={objectAssistant}
                                     id='password'
                                 />

@@ -7,76 +7,18 @@ import { Element } from 'react-scroll';
 
 export default function Dashboard(props) {
 
-    const [teamData, setTeamData] = useState([])
-    const [groupData, setGroupData] = useState([])
-
-    const getTeam = () => {
-        axios({
-            method: 'get',
-            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/getgolfer',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Authorization': 'Bearer ' + props.token
-            },
-        })
-            .then(function (response) {
-                setTeamData(response.data)
-                console.log(response)
-
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
-    const getGroup = () => {
-
-        axios({
-            method: 'get',
-            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/group',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-                'Access-Control-Allow-Credentials': true,
-                'Authorization': 'Bearer ' + props.token
-            },
-        }
-        )
-            .then(function (response) {
-                // handle success
-                console.log(response)
-                setGroupData(response.data)
-            })
-            .catch(function (error) {
-                console.log({ error })
-            })
-            .then(function () {
-                // always executed
-            });
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(getTeam, []);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(getGroup, []);
-
     const DATE_OPTIONS = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
 
-    console.log(groupData)
+    // console.log(props.groupData)
     return (
         props.token.length === 0 ?
             <Navigate to='/login' /> :
             <div>
-                <h2>Dashboard</h2>
+                <h2 className='change-bold p-2'>Dashboard</h2>
                 <br></br>
-                <h3>Welcome {Object.keys(props.userData).length > 0 && props.userData.name}!</h3>
+                <h3 className='change-text'>Welcome {Object.keys(props.userData).length > 0 && props.userData.name}!</h3>
                 <br></br>
-                <h4>Group: {JSON.stringify(groupData.data?.data)}</h4>
+                <h4 className='change-text'>Group: {JSON.stringify(props.groupData.data?.data)}</h4>
                 <Container>
                     <Row className='justify-content-center p-3'>
                         <Col lg={5}>
@@ -90,8 +32,8 @@ export default function Dashboard(props) {
                                 <Element name="scroll-container-first-element" style={{
                                     marginBottom: '0px'
                                 }}>
-                                    {teamData.data?.map((data, id) => (
-                                        <Col>
+                                    {props.userData.team.team_golfers?.map((data, id) => (
+                                        <Col key={id}>
                                             <Card className="h-100">
                                                 <Card.Body className="cardAlign">
                                                     <Card.Title>{data?.attributes?.name}</Card.Title>

@@ -7,37 +7,10 @@ import React, { useState, useEffect } from 'react';
 
 export default function JoinGroup(props) {
 
-    const [groupData, setGroupData] = useState([]);
 
     const history = useNavigate();
 
-    useEffect((data) => {
-        if (props.token.length > 0) {
-            axios({
-                method: "get",
-                url: 'https://library-kadowning110103.codeanyapp.com/api/v1/group',
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Headers": "Content-Type",
-                    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-                    "Access-Control-Allow-Credentials": true,
-                    'Authorization': 'Bearer ' + props.token
-                }
-            })
-                .then(function (response) {
-                    // handle success
-                    console.log(response)
-                    setGroupData(response.data)
-
-                })
-                .catch(function (error) {
-                    console.log({ error })
-                })
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    
 
     const joinGroup = () => {
 
@@ -62,7 +35,6 @@ export default function JoinGroup(props) {
             .then(function (response) {
                 // handle success
                 console.log(response)
-                setGroupData(response.data)
                 history('/dashboard')
             })
             .catch(function (error) {
@@ -73,7 +45,7 @@ export default function JoinGroup(props) {
             });
     }
 
-    console.log(groupData)
+    console.log(props.groupData)
     return (
         props.token.length === 0 ?
             <Navigate to='/login' /> :
@@ -92,7 +64,7 @@ export default function JoinGroup(props) {
                                 marginBottom: '0px'
                             }}>
                                 <Card className="">
-                                    {groupData.data?.map((data, id) => (
+                                    {props.groupData.data?.map((data, id) => (
                                         <Col key={id}>
                                             <Card className="h-100">
                                                 <Card.Body className="cardAlign">

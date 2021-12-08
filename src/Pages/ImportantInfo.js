@@ -101,10 +101,10 @@ export default function ImportantInfo() {
                             position: 'relative',
                             height: '50vh',
                             overflow: 'scroll',
-                            marginBottom: '100px'
+                            marginBottom: '50px'
                         }}>
                             <Element name="scroll-container-first-element" style={{
-                                marginBottom: '200px'
+                                marginBottom: '0px'
                             }}>
                                 <Table responsive className='stats'>
                                     <thead>

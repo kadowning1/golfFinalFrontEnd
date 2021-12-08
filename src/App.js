@@ -39,11 +39,11 @@ function App() {
         localStorage.removeItem("token")
         setToken('')
     };
+    const [teamData, setTeamData] = useState([])
 
     //save user data
     const [userData, setUserData] = useState({})
-
-    const getUser = () => {
+    useEffect(() => {
         if (token.length > 0) {
             axios({
                 method: "get",
@@ -59,48 +59,94 @@ function App() {
                 }
             })
                 .then(response => setUserData(response.data[0]))
-        }
-    }
+                .catch(function (error) {
+                    console.log({ error })
+                })
 
-    useEffect(getUser, [token]);
+
+
+            axios({
+                method: 'get',
+                url: 'https://library-kadowning110103.codeanyapp.com/api/v1/group',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Content-Type',
+                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+                    'Access-Control-Allow-Credentials': true,
+                    'Authorization': 'Bearer ' + token
+                },
+            }
+            )
+                .then(function (response) {
+                    // handle success
+                    // console.log(response)
+                    setGroupData(response.data)
+                })
+                .catch(function (error) {
+                    console.log({ error })
+                })
+                // axios({
+                //     method: 'get',
+                //     url: 'https://library-kadowning110103.codeanyapp.com/api/v1/getteam',
+                //     headers: {
+                //         'Accept': 'application/json',
+                //         'Content-Type': 'application/json',
+                //         'Access-Control-Allow-Origin': '*',
+                //         'Authorization': 'Bearer ' + token
+                //     },
+                // })
+                //     .then(function (response) {
+                //         setTeamData(response.data)
+                //         // console.log(response)
+        
+                //     })
+                //     .catch(function (error) {
+                //         console.log(error);
+                //     });
+        }
+    }, [token]);
+
+
+    const [groupData, setGroupData] = useState([])
+
 
     return (
-        <body className="masters text-center p-3">
-            <div className="container p-2">
-                <div className="row">
-                    <div className="col-12">
-                        {/* <h1>Major Golf Pool</h1> */}
-                        <BrowserRouter>
-                            <NavigationBar
-                                removeToken={removeToken}
-                                token={token} />
-                            <Routes>
-                                {/* no token needed for route */}
-                                <Route path="/information" element={<ImportantInfo />} />
-                                <Route path="/rankings" element={<OWGR />} />
+        <div className="container p-2 masters text-center p-3 change-text">
+            <div className="row">
+                <div className="col-12">
+                    {/* <h1>Major Golf Pool</h1> */}
+                    <BrowserRouter>
+                        <NavigationBar
+                            removeToken={removeToken}
+                            token={token} />
+                        <Routes>
+                            {/* no token needed for route */}
+                            <Route path="/information" element={<ImportantInfo />} />
+                            <Route path="/rankings" element={<OWGR />} />
 
-                                <Route path="/player" element={<Player token={token} userData={userData}/>} />
+                            <Route path="/player" element={<Player token={token} userData={userData} />} />
 
-                                {/* token needed for route */}
-                                <Route path="/creategroup" element={<CreateGroup token={token} userData={userData}/>} />
-                                <Route path="/dashboard" element={<Dashboard token={token} userData={userData} />} />
-                                <Route path="/group" element={<Group  token={token} userData={userData}/>} />
-                                <Route path="/joingroup" element={<JoinGroup token={token} userData={userData}/>} />
-                                <Route path="/team" element={<Team token={token} userData={userData}/>} />
+                            {/* token needed for route */}
+                            <Route path="/creategroup" element={<CreateGroup token={token} userData={userData} />} />
+                            <Route path="/dashboard" element={<Dashboard teamData={teamData} groupData={groupData} token={token} userData={userData} />} />
+                            <Route path="/group" element={<Group token={token} userData={userData} />} />
+                            <Route path="/joingroup" element={<JoinGroup groupData={groupData} token={token} userData={userData} />} />
+                            <Route path="/team" element={<Team teamData={teamData} token={token} userData={userData} />} />
 
 
-                                <Route path="/newuser" element={<NewUser saveToken={saveToken} token={token} />} />
-                                <Route path="/login" element={<Login saveToken={saveToken} token={token} />} />
-                                <Route path="/" element={<Home />} />
-                            </Routes>
-                            <Footer
-                                removeToken={removeToken}
-                                token={token} />
-                        </BrowserRouter>
-                    </div>
+                            <Route path="/newuser" element={<NewUser saveToken={saveToken} token={token} />} />
+                            <Route path="/login" element={<Login saveToken={saveToken} token={token} />} />
+                            <Route path="/" element={<Home />} />
+                        </Routes>
+                        <Footer
+                            removeToken={removeToken}
+                            token={token} />
+                    </BrowserRouter>
                 </div>
             </div>
-        </body>
+        </div>
     );
 }
 

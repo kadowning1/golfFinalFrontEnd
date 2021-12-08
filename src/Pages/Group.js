@@ -60,7 +60,7 @@ export default function Group(props) {
                                     marginBottom: '0px'
                                 }}>
                                     {groupStandings.data?.map((data, id) => (
-                                        <Col>
+                                        <Col key={id}>
                                             <Card className="h-100">
                                                 <Card.Body className="cardAlign">
                                                     <Card.Title>Team Name: {data?.attributes?.name}</Card.Title>

@@ -76,7 +76,7 @@ export default function NewUser(props) {
                 name='name'
                 placeholder="Enter Name"
                 onChange={objectAssistant}
-                value={newUser.name}
+                value={newUser.name||''}
                 className=''
               />
               {errors.username && <h4 className='text-danger'>Username is invalid.</h4>}
@@ -90,7 +90,7 @@ export default function NewUser(props) {
                 name='password'
                 placeholder="Password"
                 onChange={objectAssistant}
-                value={newUser.password}
+                value={newUser.password||''}
               />
               {errors.password && <h4 className='text-danger'>Password is invalid.</h4>}
             </label>
@@ -103,7 +103,7 @@ export default function NewUser(props) {
                 name='email'
                 placeholder="Email"
                 onChange={objectAssistant}
-                value={newUser.email}
+                value={newUser.email||''}
               />
               {errors.email && <h4 className='text-danger'>Email is invalid.</h4>}
             </label>

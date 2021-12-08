@@ -2,6 +2,7 @@ html {
     background-color: #076652;
     background-repeat: repeat-y;
     height: 100%;
+    font-family: 'Cinzel', serif;
 }
 
 .masters {
@@ -10,4 +11,19 @@ html {
 
 table.stats {
     font-size: medium;
+}
+
+.change-text {
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+}
+
+
+.change-bold {
+    font-family: 'Cinzel', serif;
+    font-weight: bolder;
+}
+
+body {
+    font-family: 'Cinzel', serif;
 }

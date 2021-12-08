@@ -68,7 +68,7 @@ export default function Player(token, userData, props) {
             <Container className="text-center">
                 <Row xs={1} md={4} className="g-4">
                     {APIData.results?.entry_list?.map((data, id) => (
-                        <Col>
+                        <Col key={id}>
                             <Card className="h-100">
                                 <Card.Body className="cardAlign">
                                     <Card.Title>{data?.first_name} {data?.last_name}</Card.Title>

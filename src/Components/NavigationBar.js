@@ -34,7 +34,7 @@ export default function NavigationBar(props) {
             <div className="col-12 text-center d-flex justify-content-center back">
                 <Navbar variant="dark" expand="lg" className='text-center back'>
 
-                    <Navbar.Brand as={Link} to="/">PGA Golf Pool</Navbar.Brand>
+                    <Navbar.Brand className='change-text' as={Link} to="/">PGA Golf Pool</Navbar.Brand>
                     <Navbar.Toggle id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto masters">
