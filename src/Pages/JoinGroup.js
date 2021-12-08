@@ -3,15 +3,12 @@ import { Col, Card } from 'react-bootstrap';
 import { Element } from 'react-scroll'
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
-import { useForm } from "react-hook-form";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useNavigate } from 'react';
 
 export default function JoinGroup(props) {
 
-    const [error, setError] = useState('')
     const [groupData, setGroupData] = useState([])
-
-    const { register, formState: { errors }, handleSubmit, } = useForm();
+    const history = useNavigate()
 
     useEffect((data) => {
 
@@ -39,6 +36,7 @@ export default function JoinGroup(props) {
                     console.log({ error })
                 })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const joinGroup = () => {
@@ -61,11 +59,11 @@ export default function JoinGroup(props) {
             },
         }
         )
-
             .then(function (response) {
                 // handle success
                 console.log(response)
                 setGroupData(response.data)
+                history('/dashboard')
             })
             .catch(function (error) {
                 console.log({ error })
@@ -79,12 +77,11 @@ export default function JoinGroup(props) {
     return (
         props.token.length === 0 ?
             <Navigate to='/login' /> :
-        <div className='container justify-content-center'>
-            <div className='row justify-content-center'>
-                <div className="col text-center">
-                    <h3>Join a Group!</h3>
-                    <br></br>
-                    <Col lg={5}>
+            <div className='container justify-content-center'>
+                <div className='row justify-content-center'>
+                    <div className="col-6 justify-content-center text-center">
+                        <h3>Join a Group!</h3>
+                        <br></br>
                         <h3>Groups Available</h3>
                         <br></br>
                         <Element className="element" id="scroll-container" style={{
@@ -116,9 +113,8 @@ export default function JoinGroup(props) {
                                 </Card>
                             </Element>
                         </Element>
-                    </Col>
+                    </div>
                 </div>
             </div>
-        </div>
     )
 }

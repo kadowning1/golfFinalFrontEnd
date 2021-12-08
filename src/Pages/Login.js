@@ -8,7 +8,7 @@ export default function Login(props) {
 
     const [login, setLogin] = useState({})
     const [error, setError] = useState('')
-    const required = "This field is required";
+    
 
     const { register, formState: { errors }, handleSubmit, } = useForm();
 
@@ -21,7 +21,7 @@ export default function Login(props) {
                 username: login.email,
                 password: login.password,
                 client_id: "2",
-                client_secret: "oGV8IC1Axa6MSMJ1dNsZ9Ha2aOLUedIPGPlRmwkW",
+                client_secret: "x0ILPmQXncB80LSO7RCq6GYUMQ1aDSPQS24pLBB8",
                 scope: "",
                 grant_type: "password",
             },

@@ -30,6 +30,7 @@ export default function Player(token, userData, props) {
 
             })
     },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [])
 
     const addToTeam = (id) => {

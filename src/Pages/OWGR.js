@@ -20,7 +20,7 @@ export default function OWGR() {
                 getRankings(response.data)
             })
             .catch(function (error) {
-               
+                console.log({ error })
             })
     },
         [])

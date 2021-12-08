@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import { Element } from 'react-scroll'
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
@@ -7,7 +7,6 @@ import axios from 'axios';
 export default function Group(props) {
 
     const [groupStandings, setGroupStandings] = useState([])
-    const [groupName, setGroupName] = useState({})
 
     useEffect((data) => {
 
@@ -35,6 +34,7 @@ export default function Group(props) {
                     console.log({ error })
                 })
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -58,11 +58,9 @@ export default function Group(props) {
             },
         }
         )
-
             .then(function (response) {
                 // handle success
                 console.log(response)
-                setGroupName(response.data)
             })
             .catch(function (error) {
                 console.log({ error })
@@ -82,7 +80,6 @@ export default function Group(props) {
             <Container className='justify-content-center p-2'>
                 <Row className='justify-content-center'>
                     <Col lg={5}>
-
                         <Element className="element" id="scroll-container" style={{
                             position: 'relative',
                             height: '50vh',

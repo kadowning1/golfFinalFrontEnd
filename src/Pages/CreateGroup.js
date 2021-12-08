@@ -13,6 +13,7 @@ export default function CreateGroup(props) {
 
     const { register, formState: { errors }, handleSubmit, } = useForm();
     const history = useNavigate()
+
     // const onSubmit = (data, event) => console.log(data, event);
     // console.log(watch(login))
 
@@ -44,10 +45,11 @@ export default function CreateGroup(props) {
                 console.log(response)
                 setGroupName(data.response.name)
                 // props.saveToken(response.data.access_token.token)
-                history.push('/dashboard')
+                history('/dashboard')
             })
             .catch(function (error) {
                 console.log({ error })
+                setError('Please enter a new Group Name')
             })
             .then(function () {
                 // always executed
@@ -66,11 +68,11 @@ export default function CreateGroup(props) {
                 <div className='row'>
                     <div className="col text-center">
                         <h3>Create Your Group!</h3>
-                        <form onSubmit={createNewGroup}>
+                        <form onSubmit={handleSubmit(createNewGroup)}>
                             <label>
                                 <h6 className='p-2'>Group Name</h6>
                                 <input
-                                    {...register("name", { required: true, minLength: 8, maxLength: 64 })}
+                                    {...register("name", { required: true, minLength: 4, maxLength: 64 })}
                                     type="name"
                                     name='name'
                                     value={groupName.name}
@@ -83,7 +85,6 @@ export default function CreateGroup(props) {
                             <div className='p-3'>
                                 <Button type="submit" variant="secondary" size='lg'>Submit Group</Button>{' '}
                             </div>
-                            {/* <p>{error.message}</p> */}
                             {error.length > 0 ? <h4 className='text-danger'>{error}</h4> : null}
                         </form>
                     </div>

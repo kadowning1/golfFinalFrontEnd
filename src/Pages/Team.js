@@ -27,18 +27,9 @@ export default function Team(props) {
         })
             .then(function (response) {
                 console.log('response received', response)
-                // const data = response.data.results.entry_list.map(g =>{
-
-                //     props.user.team.team_golfers.map()
-
-                //   return ({ ...g })
-
-
-                // })
-                // console.log(data)
-                console.log(props.token)
                 setAPIData(response.data.results.entry_list)
-                // props.saveToken(response.data.access_token)
+                history('/dashboard')
+                
             })
             .catch(function (error) {
                 console.log({ error })
@@ -46,6 +37,7 @@ export default function Team(props) {
             .then(function () {
 
             })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useDeepCompareEffect(() => {
@@ -368,10 +360,10 @@ export default function Team(props) {
                 </Row>
                 <Row>
                     <Col>
-                        <h4>Deadline to Submit Picks: {Date()}</h4>
-                        <div className='p-3'>
+                        {/* <h4>Deadline to Submit Picks: {Date()}</h4>
+                        <div className='p-3'> */}
                             <Button type="submit" variant="secondary" size='lg'>Submit Team</Button>
-                        </div>
+                        {/* </div> */}
                     </Col>
                 </Row>
             </form>
