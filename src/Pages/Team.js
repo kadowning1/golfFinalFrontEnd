@@ -22,13 +22,12 @@ export default function Team(props) {
             url: 'https://golf-leaderboard-data.p.rapidapi.com/entry-list/219',
             headers: {
                 'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
-                'x-rapidapi-key': '867b92cc92mshb16f3d6e206d6c7p1d5055jsn98f57c1ebf45'
+                'x-rapidapi-key': '4e3ba61b86mshab04471da6fe79cp136b51jsnb7094541e457'
             }
         })
             .then(function (response) {
                 console.log('response received', response)
                 setAPIData(response.data.results.entry_list)
-                history('/dashboard')
                 
             })
             .catch(function (error) {
@@ -99,8 +98,7 @@ export default function Team(props) {
                 // handle success
                 console.log(response)
                 setTeamName(data.response.name)
-                // props.saveToken(response.data.access_token.token)
-                // history.push('/dashboard')
+                history('/dashboard')
 
             })
             .catch(function (error) {

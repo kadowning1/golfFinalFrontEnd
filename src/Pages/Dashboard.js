@@ -13,7 +13,7 @@ export default function Dashboard(props) {
     const getTeam = () => {
         axios({
             method: 'get',
-            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/getteam',
+            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/getgolfer',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ export default function Dashboard(props) {
                 <br></br>
                 <h3>Welcome {Object.keys(props.userData).length > 0 && props.userData.name}!</h3>
                 <br></br>
-                <h4>Group:{groupData.data?.data?.attributes?.name}</h4>
+                <h4>Group: {JSON.stringify(groupData.data?.data)}</h4>
                 <Container>
                     <Row className='justify-content-center p-3'>
                         <Col lg={5}>

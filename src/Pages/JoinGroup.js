@@ -2,16 +2,16 @@ import Button from 'react-bootstrap/Button';
 import { Col, Card } from 'react-bootstrap';
 import { Element } from 'react-scroll'
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
-import React, { useState, useEffect, useNavigate } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 export default function JoinGroup(props) {
 
-    const [groupData, setGroupData] = useState([])
-    const history = useNavigate()
+    const [groupData, setGroupData] = useState([]);
+
+    const history = useNavigate();
 
     useEffect((data) => {
-
         if (props.token.length > 0) {
             axios({
                 method: "get",
@@ -81,8 +81,6 @@ export default function JoinGroup(props) {
                 <div className='row justify-content-center'>
                     <div className="col-6 justify-content-center text-center">
                         <h3>Join a Group!</h3>
-                        <br></br>
-                        <h3>Groups Available</h3>
                         <br></br>
                         <Element className="element" id="scroll-container" style={{
                             position: 'relative',

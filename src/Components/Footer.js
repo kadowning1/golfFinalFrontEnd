@@ -7,7 +7,7 @@ export default function Footer(props) {
             <br></br>
             <footer id="fixed-bottom" class="flex-shrink-0 border-top py-4 masters text-white-50">
                 <div class="container text-center">
-                    <small>Copyright &copy; Major Golf Pool</small>
+                    <small>Copyright &copy; PGA Golf Pool</small>
                 </div>
             </footer>
         </div>

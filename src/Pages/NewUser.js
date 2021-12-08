@@ -18,7 +18,7 @@ export default function NewUser(props) {
     event.preventDefault();
     const data = {
       email: newUser.email,
-      name: newUser.username,
+      name: newUser.name,
       password: newUser.password,
       age: newUser.age
     }
@@ -69,14 +69,14 @@ export default function NewUser(props) {
           <h2>Create New User</h2>
           <form onSubmit={handleSubmit(createNewUser)} >
             <label className='p-3'>
-              <h5>Enter New UserName</h5>
+              <h5>Enter Name</h5>
               <input
                 {...register("username", { required: true, minLength: 4, maxLength: 64 })}
                 type="username"
-                name='username'
-                placeholder="Enter Username"
+                name='name'
+                placeholder="Enter Name"
                 onChange={objectAssistant}
-                value={newUser.username}
+                value={newUser.name}
                 className=''
               />
               {errors.username && <h4 className='text-danger'>Username is invalid.</h4>}
