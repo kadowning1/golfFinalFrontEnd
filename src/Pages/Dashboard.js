@@ -43,7 +43,6 @@ export default function Dashboard(props) {
                                     ))}
                                 </Element>
                             </Element>
-
                         </Col>
                         <Col lg={8}>
                             <Link to="/team" as={Link} className="btn btn-secondary lg p-3">Edit Team</Link>
