@@ -8,9 +8,10 @@ import { useDeepCompareEffect } from 'react-use';
 import { Navigate } from 'react-router-dom';
 
 export default function Team(props) {
-    const [APIData, setAPIData] = useState([])
-    const [currentGolfers, setCurrentGolfers] = useState([])
-    const [teamName, setTeamName] = useState('')
+    const [APIData, setAPIData] = useState([]);
+    const [currentGolfers, setCurrentGolfers] = useState([]);
+    const [teamName, setTeamName] = useState('');
+    const [getTeam, setGetTeam] = useState([]);
 
     const [saveTeam, setSaveTeam] = useState([]);
 
@@ -243,6 +244,34 @@ export default function Team(props) {
             })
     }
 
+    const getTeamScore = () => {
+    axios({
+        method: 'get',
+        url: 'https://library-kadowning110103.codeanyapp.com/api/v1/group',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            'Access-Control-Allow-Credentials': true,
+            'Authorization': 'Bearer ' + props.token
+        },
+    }
+    )
+        .then(function (response) {
+            // handle success
+            // console.log(response)
+            setGetTeam(response.data)
+        })
+        .catch(function (error) {
+            console.log({ error })
+        })
+    };
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect (getTeamScore, []);
+
     return (
         props.token.length === 0 ?
             <Navigate to='/login' /> :
@@ -264,7 +293,7 @@ export default function Team(props) {
                                     onChange={e => setTeamName(e.target.value)}
                                 />
                             </InputGroup>
-                            <Button type="submit" variant="secondary" size='sm'>Submit Team Name</Button>
+                            <Button type="submit" variant="secondary" size='lg'>Submit Team Name</Button>
                             <div className='p-3'>
                             </div>
                             <h2 className="p-4">Selections Left: {6 - currentGolfers.length}</h2>

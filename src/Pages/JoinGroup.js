@@ -14,11 +14,11 @@ export default function JoinGroup(props) {
 
         
         const data = {
-            name: props.groupData.data.attributes.name
+            name: props.groupData
         }
         
-        let map = data.map(props.groupData.data)
-        
+        // let map = data.name.map(props.groupData.data)
+
         axios({
             method: 'post',
             url: 'https://library-kadowning110103.codeanyapp.com/api/v1/joingroup',
