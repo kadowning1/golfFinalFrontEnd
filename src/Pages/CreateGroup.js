@@ -10,15 +10,11 @@ export default function CreateGroup(props) {
 
     const [error, setError] = useState('')
     const [groupName, setGroupName] = useState({})
-
     const { register, formState: { errors }, handleSubmit, } = useForm();
     const history = useNavigate()
 
-    // const onSubmit = (data, event) => console.log(data, event);
-    // console.log(watch(login))
-
-    const createNewGroup = (e) => {
-        e.preventDefault();
+    const createNewGroup = (event) => {
+        event.preventDefault();
         const data = {
             name: groupName.name,
         }
@@ -44,7 +40,6 @@ export default function CreateGroup(props) {
                 // handle success
                 console.log(response)
                 setGroupName(data.response.name)
-                // props.saveToken(response.data.access_token.token)
                 history('/dashboard')
             })
             .catch(function (error) {
@@ -67,7 +62,7 @@ export default function CreateGroup(props) {
             <div className='container'>
                 <div className='row'>
                     <div className="col text-center">
-                        <h3>Create Your Group!</h3>
+                        <h3 className='p-2'>Create Your Group!</h3>
                         <form onSubmit={handleSubmit(createNewGroup)}>
                             <label>
                                 <h6 className='p-2'>Group Name</h6>

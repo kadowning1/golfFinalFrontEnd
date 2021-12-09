@@ -69,9 +69,9 @@ export default function ImportantInfo() {
     return (
         <div>
             <Container fluid>
-                <Row>
-                    <Col lg={5} className="text-center display-3">
-                        Venue Information
+                <Row className='justify-content-center h-100 p-3'>
+                    <Col sm={5} className="text-center justify-content-center display-3">
+                        Venue
                         <Card className="">
                             <Card.Body className="cardAlign">
                                 <h4>Tournament: {leaderboard?.results?.tournament.name}</h4>
@@ -80,8 +80,8 @@ export default function ImportantInfo() {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col lg={2}></Col>
-                    <Col lg={5} className="text-center display-3">
+                    {/* <Col lg={2}></Col> */}
+                    <Col sm={5} className="text-center display-3">
                         Weather
                         <Card className="">
                             <Card.Body className="cardAlign">

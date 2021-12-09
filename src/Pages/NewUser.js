@@ -66,7 +66,7 @@ export default function NewUser(props) {
     <div className='container'>
       <div className='row'>
         <div className="col text-center">
-          <h2>Create New User</h2>
+          <h2 className='change-text p-2'>Create New User</h2>
           <form onSubmit={handleSubmit(createNewUser)} >
             <label className='p-3'>
               <h5>Enter Name</h5>

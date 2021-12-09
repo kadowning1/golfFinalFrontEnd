@@ -7,6 +7,7 @@ html {
 
 .masters {
     background-color: #076652;
+    background-repeat: repeat-x;
 } 
 
 table.stats {
@@ -26,4 +27,15 @@ table.stats {
 
 body {
     font-family: 'Cinzel', serif;
+    background-color: #076652;
+    background-repeat: repeat-x;
+}
+
+.basic-navbar-nav {
+    background-color: #076652;
+}
+
+.masters-gold{
+    background-color: #eeec1a
+
 }

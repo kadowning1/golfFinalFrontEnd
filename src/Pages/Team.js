@@ -1,4 +1,4 @@
-import { Container, Col, Row, Card } from 'react-bootstrap';
+import { Container, Col, Row, Card, InputGroup, FormControl } from 'react-bootstrap';
 import { Element } from 'react-scroll'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -217,23 +217,26 @@ export default function Team(props) {
     return (
         props.token.length === 0 ?
             <Navigate to='/login' /> :
-            <Container className="text-center display-3">
+            <Container className="text-center display-3 p-3 change-bold">
                 <form onSubmit={updateTeamName}>
-                    Pick Your Team
+                    <h1 className='display-3 change-bold'>Pick Your Team</h1>
             <Row>
-                        <Col lg={12}>
-                            <label>
-                                <h3 className='p-2'>TeamName</h3>
-                                <input
+                        <Col>
+                            {/* <h3 className='p-2 text-center'>TeamName</h3> */}
+                            <InputGroup size="lg" className="mb-4 p-3">
+                                <InputGroup.Text id="inputGroup-sizing-lg">Team Name</InputGroup.Text>
+                                <FormControl
+                                    aria-label="large"
+                                    aria-describedby="inputGroup-sizing-small"
                                     type="name"
                                     name="name"
                                     id='name'
                                     value={teamName}
                                     onChange={e => setTeamName(e.target.value)}
                                 />
-                            </label>
-                            <div className='p-3'>
+                            </InputGroup>
                                 <Button type="submit" variant="secondary" size='sm'>Submit Team Name</Button>
+                            <div className='p-3'>
                             </div>
                             <h2 className="p-4">Selections Left: {6 - currentGolfers.length}</h2>
                         </Col>

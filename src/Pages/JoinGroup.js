@@ -10,7 +10,7 @@ export default function JoinGroup(props) {
 
     const history = useNavigate();
 
-    
+
 
     const joinGroup = () => {
 
@@ -52,7 +52,7 @@ export default function JoinGroup(props) {
             <div className='container justify-content-center'>
                 <div className='row justify-content-center'>
                     <div className="col-6 justify-content-center text-center">
-                        <h3>Join a Group!</h3>
+                        <h3 className='change-bold p-3'>Join a Group!</h3>
                         <br></br>
                         <Element className="element" id="scroll-container" style={{
                             position: 'relative',

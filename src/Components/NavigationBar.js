@@ -34,7 +34,7 @@ export default function NavigationBar(props) {
             <div className="col-12 text-center d-flex justify-content-center back">
                 <Navbar variant="dark" expand="lg" className='text-center back'>
 
-                    <Navbar.Brand className='change-text' as={Link} to="/">PGA Golf Pool</Navbar.Brand>
+                    <Navbar.Brand className='change-bold' as={Link} to="/">PGA Golf Pool</Navbar.Brand>
                     <Navbar.Toggle id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto masters">
@@ -44,7 +44,7 @@ export default function NavigationBar(props) {
                             {props.token.length > 0 ? <Nav.Link as={Link} to="/team">My Team</Nav.Link> : null}
 
                             {props.token.length > 0 ?
-                                <NavDropdown title="Groups" id="basic-nav-dropdown" className="text-center">
+                                <NavDropdown title="Groups" id="basic-nav-dropdown" className="justify-content-center">
                                     <NavDropdown.Item>
                                         {props.token.length > 0 ? <Link as={Link} to="/creategroup">Create Group</Link> : null}
                                     </NavDropdown.Item>

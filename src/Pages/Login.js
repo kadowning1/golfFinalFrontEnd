@@ -8,12 +8,10 @@ export default function Login(props) {
 
     const [login, setLogin] = useState({})
     const [error, setError] = useState('')
-    
-
     const { register, formState: { errors }, handleSubmit, } = useForm();
 
     const getLogin = () => {
-        // event.preventDefault();
+        
         axios({
             method: 'post',
             url: 'https://library-kadowning110103.codeanyapp.com/oauth/token',
@@ -42,13 +40,8 @@ export default function Login(props) {
                 props.saveToken(response.data.access_token)
             })
             .catch(function (error) {
-                console.log(error.error_description)
+                // console.log(error.error_description)
                 setError('Please Check User Credentials')
-                // if (error.response?.error?.message) {
-                //     setError(error.response?.error?.message)
-                // } else {
-                //     setError(error.response?.error?.message.toUpperCase())
-                // }
             })
             .then(function () {
             });

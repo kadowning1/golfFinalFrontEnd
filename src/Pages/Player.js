@@ -57,9 +57,9 @@ export default function Player(token, userData, props) {
 
     return (
         <div>
-            <Container>
+            <Container className="text-center display-3 change-bold p-3">
                 <Row>
-                    <Col className="text-center display-2">
+                    <Col className="text-center display-2 change-bold">
                         PGA Players - Field List
                     </Col>
                 </Row>
@@ -73,12 +73,12 @@ export default function Player(token, userData, props) {
                                 <Card.Body className="cardAlign">
                                     <Card.Title>{data?.first_name} {data?.last_name}</Card.Title>
                                     <Card.Text>{data?.country}</Card.Text>
-                                    <Button
+                                    {/* <Button
                                         onClick={() =>
                                             addToTeam(data.id)}
                                         className="bg-success">
                                         Add to Team
-                                        </Button>
+                                        </Button> */}
                                 </Card.Body>
                             </Card>
                         </Col>

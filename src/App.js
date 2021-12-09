@@ -125,7 +125,6 @@ function App() {
                             {/* no token needed for route */}
                             <Route path="/information" element={<ImportantInfo />} />
                             <Route path="/rankings" element={<OWGR />} />
-
                             <Route path="/player" element={<Player token={token} userData={userData} />} />
 
                             {/* token needed for route */}

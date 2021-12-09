@@ -36,7 +36,7 @@ export default function OWGR() {
 
     return (
         <div>
-             <Container className="text-center display-3">
+             <Container className="text-center display-3 change-bold p-3">
                 World Golf Rankings
                 <Row lg={12}>
                 <Col lg={12}>
