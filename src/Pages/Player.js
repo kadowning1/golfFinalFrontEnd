@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react'
 
 export default function Player(token, userData, props) {
@@ -33,27 +33,27 @@ export default function Player(token, userData, props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [])
 
-    const addToTeam = (id) => {
-        axios({
-            method: "post",
-            data: {
-                team_id: id
-            },
-            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/addtoteam',
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "Content-Type",
-                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-                "Access-Control-Allow-Credentials": true,
-                'Authorization': 'Bearer ' + props.token
-            },
-        })
-            .then(response => {
-                userData(response.data)
-            })
-    }
+    // const addToTeam = (id) => {
+    //     axios({
+    //         method: "post",
+    //         data: {
+    //             team_id: id
+    //         },
+    //         url: 'https://library-kadowning110103.codeanyapp.com/api/v1/addtoteam',
+    //         headers: {
+    //             "Accept": "application/json",
+    //             "Content-Type": "application/json",
+    //             "Access-Control-Allow-Origin": "*",
+    //             "Access-Control-Allow-Headers": "Content-Type",
+    //             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+    //             "Access-Control-Allow-Credentials": true,
+    //             'Authorization': 'Bearer ' + props.token
+    //         },
+    //     })
+    //         .then(response => {
+    //             userData(response.data)
+    //         })
+    // }
 
     return (
         <div>

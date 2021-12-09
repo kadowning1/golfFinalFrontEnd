@@ -41,8 +41,7 @@ export default function Group(props) {
         props.token.length === 0 ?
             <Navigate to='/login' /> :
             <div>
-                <h1>Group Standings</h1>
-                <br></br>
+                <h1 className='p-3 change-bold'>Group Standings</h1>
                 <h1>
                     Group Name
                     {/* {JSON.stringify(groupStandings.data)} */}
@@ -74,7 +73,7 @@ export default function Group(props) {
                         </Col>
                     </Row>
                 </Container>
-                <h4>Deadline to Submit Picks: {Date()}</h4>
+                <h4>Deadline to Submit Picks: Thu, Dec 16, 2021 12:00am</h4>
             </div>
     )
 }

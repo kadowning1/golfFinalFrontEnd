@@ -3,24 +3,26 @@ import { Col, Card } from 'react-bootstrap';
 import { Element } from 'react-scroll'
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 export default function JoinGroup(props) {
 
-
+    // console.log(props.groupData?.data[0]?.attributes?.name)
     const history = useNavigate();
-
-
 
     const joinGroup = () => {
 
-        // const data = {
-        //     name: groupName.name
-        // }
-        // console.log(data)
+        
+        const data = {
+            name: props.groupData.data.attributes.name
+        }
+        
+        let map = data.map(props.groupData.data)
+        
         axios({
             method: 'post',
             url: 'https://library-kadowning110103.codeanyapp.com/api/v1/joingroup',
+            data,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -46,6 +48,7 @@ export default function JoinGroup(props) {
     }
 
     console.log(props.groupData)
+
     return (
         props.token.length === 0 ?
             <Navigate to='/login' /> :
@@ -74,8 +77,7 @@ export default function JoinGroup(props) {
                                                         onClick={() =>
                                                             joinGroup(data.id)}
                                                         className="bg-success">
-                                                        Join Group!
-                                        </Button>
+                                                        Join Group!</Button>
                                                 </Card.Body>
                                             </Card>
                                         </Col>

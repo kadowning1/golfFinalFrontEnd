@@ -6,9 +6,9 @@ import { Element } from 'react-scroll';
 
 export default function Dashboard(props) {
 
-    const DATE_OPTIONS = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    // const DATE_OPTIONS = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
 
-    console.log(props.userData)
+    console.log(props.userData.team)
     return (
         props.token.length === 0 ?
             <Navigate to='/login' /> :
@@ -18,6 +18,7 @@ export default function Dashboard(props) {
                 <h3 className='change-text'>Welcome {Object.keys(props.userData).length > 0 && props.userData.name}!</h3>
                 <br></br>
                 <h4 className=''>Group: {props.userData?.team?.group_id}</h4>
+                <h4>Total Score: {props.userData?.team?.group_id}</h4>
                 <Container>
                     <Row className='justify-content-center p-3'>
                         <h3 className='justify-content-center p-1'>{props.userData?.team?.name} Selections</h3>
@@ -35,8 +36,8 @@ export default function Dashboard(props) {
                                         <Col key={id}>
                                             <Card className="h-100">
                                                 <Card.Body className="cardAlign">
-                                                    <Card.Title>{data?.attributes?.name}</Card.Title>
-                                                    <Card.Text>{data?.attributes?.score}</Card.Text>
+                                                    <Card.Title>Name: {data?.golfer_id}</Card.Title>
+                                                    <Card.Text>Score: {data?.golfer_id}</Card.Text>
                                                 </Card.Body>
                                             </Card>
                                         </Col>
@@ -47,7 +48,9 @@ export default function Dashboard(props) {
                         <Col lg={8}>
                             <Link to="/team" as={Link} className="btn btn-secondary lg p-3">Edit Team</Link>
                             <h4 className='p-3'>Deadline to Submit Picks: </h4>
-                            <h5>{(new Date()).toLocaleDateString('en-US', DATE_OPTIONS)}</h5>
+                            <h5>Thu, Dec 16, 2021 12:00am
+                            {/* {(new Date()).toLocaleDateString('en-US', DATE_OPTIONS)} */}
+                            </h5>
                         </Col>
                     </Row>
                 </Container>

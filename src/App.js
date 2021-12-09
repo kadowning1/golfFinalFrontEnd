@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
-import './App.css';
+import axios from 'axios';
 import Dashboard from './Pages/Dashboard';
 import NewUser from './Pages/NewUser';
 import Group from './Pages/Group';
@@ -16,11 +15,9 @@ import NavigationBar from './Components/NavigationBar';
 import Footer from './Components/Footer';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Pages/Home';
-// import { Navbar } from 'react-bootstrap';
 
 function App() {
 
-    //save token in storage
     const [token, setToken] = useState('');
 
     useEffect(() => {
@@ -39,10 +36,11 @@ function App() {
         localStorage.removeItem("token")
         setToken('')
     };
-    const [teamData, setTeamData] = useState([])
 
-    //save user data
+    // const [teamData, setTeamData] = useState([])
+    const [groupData, setGroupData] = useState({})
     const [userData, setUserData] = useState({})
+
     useEffect(() => {
         if (token.length > 0) {
             axios({
@@ -62,8 +60,6 @@ function App() {
                 .catch(function (error) {
                     console.log({ error })
                 })
-
-
 
             axios({
                 method: 'get',
@@ -87,62 +83,60 @@ function App() {
                 .catch(function (error) {
                     console.log({ error })
                 })
-                // axios({
-                //     method: 'get',
-                //     url: 'https://library-kadowning110103.codeanyapp.com/api/v1/getteam',
-                //     headers: {
-                //         'Accept': 'application/json',
-                //         'Content-Type': 'application/json',
-                //         'Access-Control-Allow-Origin': '*',
-                //         'Authorization': 'Bearer ' + token
-                //     },
-                // })
-                //     .then(function (response) {
-                //         setTeamData(response.data)
-                //         // console.log(response)
-        
-                //     })
-                //     .catch(function (error) {
-                //         console.log(error);
-                //     });
+            // axios({
+            //     method: 'get',
+            //     url: 'https://library-kadowning110103.codeanyapp.com/api/v1/getteam',
+            //     headers: {
+            //         'Accept': 'application/json',
+            //         'Content-Type': 'application/json',
+            //         'Access-Control-Allow-Origin': '*',
+            //         'Authorization': 'Bearer ' + token
+            //     },
+            // })
+            //     .then(function (response) {
+            //         setTeamData(response.data)
+            //         // console.log(response)
+
+            //     })
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     });
         }
     }, [token]);
 
-
-    const [groupData, setGroupData] = useState([])
-
-
     return (
-        <div className="container p-2 masters text-center p-3 change-text">
-            <div className="row">
-                <div className="col-12">
-                    {/* <h1>Major Golf Pool</h1> */}
-                    <BrowserRouter>
-                        <NavigationBar
-                            removeToken={removeToken}
-                            token={token} />
-                        <Routes>
-                            {/* no token needed for route */}
-                            <Route path="/information" element={<ImportantInfo />} />
-                            <Route path="/rankings" element={<OWGR />} />
-                            <Route path="/player" element={<Player token={token} userData={userData} />} />
+        <div className='masters'>
+            <div className="container p-2 masters text-center p-3 change-text">
+                <div className="row">
+                    <div className="col-12">
+                        {/* <h1>Major Golf Pool</h1> */}
+                        <BrowserRouter>
+                            <NavigationBar
+                                removeToken={removeToken}
+                                token={token} />
+                            <Routes>
+                                {/* no token needed for route */}
+                                <Route path="/information" element={<ImportantInfo />} />
+                                <Route path="/rankings" element={<OWGR />} />
+                                <Route path="/player" element={<Player token={token} userData={userData} />} />
 
-                            {/* token needed for route */}
-                            <Route path="/creategroup" element={<CreateGroup token={token} userData={userData} />} />
-                            <Route path="/dashboard" element={<Dashboard teamData={teamData} groupData={groupData} token={token} userData={userData} />} />
-                            <Route path="/group" element={<Group token={token} userData={userData} />} />
-                            <Route path="/joingroup" element={<JoinGroup groupData={groupData} token={token} userData={userData} />} />
-                            <Route path="/team" element={<Team teamData={teamData} token={token} userData={userData} />} />
+                                {/* token needed for route */}
+                                <Route path="/creategroup" element={<CreateGroup token={token} userData={userData} />} />
+                                <Route path="/dashboard" element={<Dashboard groupData={groupData} token={token} userData={userData} />} />
+                                <Route path="/group" element={<Group token={token} userData={userData} />} />
+                                <Route path="/joingroup" element={<JoinGroup groupData={groupData} token={token} userData={userData} />} />
+                                <Route path="/team" element={<Team token={token} userData={userData} />} />
 
 
-                            <Route path="/newuser" element={<NewUser saveToken={saveToken} token={token} />} />
-                            <Route path="/login" element={<Login saveToken={saveToken} token={token} />} />
-                            <Route path="/" element={<Home />} />
-                        </Routes>
-                        <Footer
-                            removeToken={removeToken}
-                            token={token} />
-                    </BrowserRouter>
+                                <Route path="/newuser" element={<NewUser saveToken={saveToken} token={token} />} />
+                                <Route path="/login" element={<Login saveToken={saveToken} token={token} />} />
+                                <Route path="/" element={<Home />} />
+                            </Routes>
+                            <Footer
+                                removeToken={removeToken}
+                                token={token} />
+                        </BrowserRouter>
+                    </div>
                 </div>
             </div>
         </div>

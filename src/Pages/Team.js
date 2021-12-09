@@ -12,6 +12,29 @@ export default function Team(props) {
     const [currentGolfers, setCurrentGolfers] = useState([])
     const [teamName, setTeamName] = useState('')
 
+    const [saveTeam, setSaveTeam] = useState([]);
+
+    useEffect(() => {
+        let lsTeam = window.localStorage.getItem(saveTeam)
+        if (lsTeam) {
+            setSaveTeam(lsTeam)
+        }
+    }, [])
+
+    useEffect(() => {
+            saveFullTeam(currentGolfers);
+    }, [currentGolfers])
+
+    const saveFullTeam = userTeam => {
+        localStorage.setItem('saveTeam', userTeam);
+        setSaveTeam(userTeam);
+    };
+
+    const removeFullTeam = () => {
+        localStorage.removeItem("saveTeam")
+        setSaveTeam('')
+    };
+
     useEffect(() => {
         if (Object.keys(props.userData).length > 0) {
             setTeamName(props.userData.team.name)
@@ -66,6 +89,7 @@ export default function Team(props) {
     }, [APIData, props.userData]);
 
     //call to add team name to db
+    console.log(props.userData.team)
 
     const updateTeamName = (e) => {
         e.preventDefault()
@@ -105,9 +129,8 @@ export default function Team(props) {
                 // always executed
             });
     }
-
     //call to add golfer from team in db
-    const addGolfer = (id) => {
+    const addToTeam = (id) => {
         if (6 - currentGolfers.length > 0) {
             console.log(id)
             axios({
@@ -131,40 +154,62 @@ export default function Team(props) {
             })
                 .then(r => {
                     console.log(r)
+                    addGolfer(id);
+                    saveFullTeam(r.data.team_golfers);
 
-                    // handle success
-                    let myGolfers = [];
-                    if (currentGolfers.length > 0) {
-                        myGolfers = currentGolfers;
-                    }
-                    setAPIData(prevAPIData => {
-                        const newAPIData = prevAPIData.filter(apiGolfer => {
-                            let foundGolfer = myGolfers.find(myGolfer => myGolfer.player_id === apiGolfer.player_id)
-                            if (foundGolfer) {
-                                return false
-                            } else {
-                                if (id === apiGolfer.player_id) {
-                                    myGolfers.push(apiGolfer)
-                                    return false
-                                }
-                            }
-                            return apiGolfer
-                        })
-                        return newAPIData
-                    })
-                    setCurrentGolfers(prevCurrentGolfers => {
-                        return myGolfers
-                    })
                 })
                 .catch(function (error) {
                     console.log({ error })
                 })
         }
     }
-
+    const addGolfer = (id) => {// handle success
+        console.log(id)
+        let myGolfers = [];
+        if (currentGolfers.length > 0) {
+            myGolfers = [...currentGolfers];
+        }
+        setAPIData(prevAPIData => {
+            const newAPIData = prevAPIData.filter(apiGolfer => {
+                let foundGolfer = myGolfers.find(myGolfer => myGolfer.player_id === apiGolfer.player_id)
+                if (foundGolfer) {
+                    return false
+                } else {
+                    if (id === apiGolfer.player_id) {
+                        myGolfers.push(apiGolfer)
+                        return false
+                    }
+                }
+                return apiGolfer
+            })
+            setCurrentGolfers(prevCurrentGolfers => {
+                return myGolfers
+            })
+            return newAPIData
+        })
+    }
     //call to remove golfer from team in db
-
     const removeGolfer = (id) => {
+        let newApiData = [...APIData];
+
+        setCurrentGolfers(prevCurrentGolfers => {
+            const newCurrentGolferData = prevCurrentGolfers.filter(currentGolfer => {
+
+                if (currentGolfer.player_id === id) {
+                    newApiData.push(currentGolfer)
+                    return false
+                }
+                return true
+            })
+            setAPIData(prevAPIData => {
+                return newApiData.filter((elem, index, self) => self.findIndex(
+                    t => { return (t.player_id === elem.player_id) }) === index)
+            })
+            return newCurrentGolferData
+        })
+
+    }
+    const removeFromTeam = (id) => {
         axios({
             method: 'post',
             url: 'https://library-kadowning110103.codeanyapp.com/api/v1/removeFromTeam',
@@ -172,7 +217,7 @@ export default function Team(props) {
                 // eslint-disable-next-line no-undef
                 golfer_id: id,
                 // eslint-disable-next-line no-undef
-                // team_id: team_id
+                team_id: props.userData.team.id
             },
             headers: {
                 'Accept': 'application/json',
@@ -187,27 +232,11 @@ export default function Team(props) {
         )
             // Make a request for a user with a given ID
 
-            .then(function (response) {
+            .then((response) => {
                 // handle success
-
-                let newApiData = [...APIData];
-
-                setCurrentGolfers(prevCurrentGolfers => {
-                    const newCurrentGolferData = prevCurrentGolfers.filter(currentGolfer => {
-
-                        if (currentGolfer.player_id === id) {
-                            newApiData.push(currentGolfer)
-                            return false
-                        }
-                        return true
-                    })
-                    return newCurrentGolferData
-                })
-
-                setAPIData(prevAPIData => {
-                    return newApiData.filter((elem, index, self) => self.findIndex(
-                        t => { return (t.player_id === elem.player_id) }) === index)
-                })
+                console.log(response)
+                removeGolfer(id);
+                removeFullTeam();
             })
             .catch(function (error) {
                 console.log({ error })
@@ -220,7 +249,7 @@ export default function Team(props) {
             <Container className="text-center display-3 p-3 change-bold">
                 <form onSubmit={updateTeamName}>
                     <h1 className='display-3 change-bold'>Pick Your Team</h1>
-            <Row>
+                    <Row>
                         <Col>
                             {/* <h3 className='p-2 text-center'>TeamName</h3> */}
                             <InputGroup size="lg" className="mb-4 p-3">
@@ -235,7 +264,7 @@ export default function Team(props) {
                                     onChange={e => setTeamName(e.target.value)}
                                 />
                             </InputGroup>
-                                <Button type="submit" variant="secondary" size='sm'>Submit Team Name</Button>
+                            <Button type="submit" variant="secondary" size='sm'>Submit Team Name</Button>
                             <div className='p-3'>
                             </div>
                             <h2 className="p-4">Selections Left: {6 - currentGolfers.length}</h2>
@@ -290,7 +319,7 @@ export default function Team(props) {
                                                                     <button
                                                                         type="button"
                                                                         className="btn btn-rounded mx-auto bg-secondary text-white h-100 d-flex align-items-center"
-                                                                        onClick={() => addGolfer(data.player_id)}>
+                                                                        onClick={() => addToTeam(data.player_id)}>
                                                                         <i className="fas fa-plus"></i>
                                                                     </button>
                                                                 </Card.Title>
@@ -327,7 +356,7 @@ export default function Team(props) {
                                                                     <button
                                                                         type="button"
                                                                         className="btn btn-rounded mx-auto bg-secondary text-white h-100 d-flex align-items-center"
-                                                                        onClick={() => removeGolfer(data.player_id)}>
+                                                                        onClick={() => removeFromTeam(data.player_id)}>
                                                                         <i className="fas fa-minus"></i>
                                                                     </button>
                                                                 </Card.Title>
