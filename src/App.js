@@ -40,6 +40,7 @@ function App() {
     // const [teamData, setTeamData] = useState([])
     const [groupData, setGroupData] = useState({})
     const [userData, setUserData] = useState({})
+    const [scoreData, setScoreData] = useState({})
 
     const getUserData = () => {
         axios({
@@ -62,7 +63,8 @@ function App() {
     }
     useEffect(() => {
         if (token.length > 0) {
-           getUserData();
+            getUserData();
+            getTeamScore();
 
             axios({
                 method: 'get',
@@ -107,6 +109,33 @@ function App() {
         }
     }, [token]);
 
+
+    const getTeamScore = () => {
+        axios({
+            method: 'get',
+            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/gettotal',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+                'Access-Control-Allow-Credentials': true,
+                'Authorization': 'Bearer ' + token
+            },
+        }
+        )
+            .then(function (response) {
+                // handle success
+                // console.log(response)
+                setGroupData(response.data)
+            })
+            .catch(function (error) {
+                console.log({ error })
+            })
+    };
+
+
     return (
         <div className='masters'>
             <div className="container p-2 masters text-center p-3 change-text">
@@ -125,8 +154,8 @@ function App() {
 
                                 {/* token needed for route */}
                                 <Route path="/creategroup" element={<CreateGroup token={token} userData={userData} />} />
-                                <Route path="/dashboard" element={<Dashboard groupData={groupData} token={token} userData={userData} />} />
-                                <Route path="/group" element={<Group token={token} userData={userData} />} />
+                                <Route path="/dashboard" element={<Dashboard getTeamScore={getTeamScore} groupData={groupData} token={token} userData={userData} />} />
+                                <Route path="/group" element={<Group getTeamScore={getTeamScore} token={token} userData={userData} />} />
                                 <Route path="/joingroup" element={<JoinGroup getUserData={getUserData} groupData={groupData} token={token} userData={userData} />} />
                                 <Route path="/team" element={<Team getUserData={getUserData} token={token} userData={userData} />} />
 

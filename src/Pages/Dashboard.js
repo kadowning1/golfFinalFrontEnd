@@ -8,7 +8,8 @@ export default function Dashboard(props) {
 
     // const DATE_OPTIONS = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
 
-    console.log(props.userData)
+    // console.log(props.userData.user_groups)
+    // console.log(props.getTeamScore)
     return (
         props.token.length === 0 ?
             <Navigate to='/login' /> :
@@ -18,16 +19,17 @@ export default function Dashboard(props) {
                 <h3 className='change-text'>Welcome {Object.keys(props.userData).length > 0 && props.userData.name}!</h3>
                 <br></br>
                 <Col sm={6}>
-                    {/* <h4 key='id' className=''> Group: {data.group?.name}</h4>           */}
-                    {props.userData?.team?.user_groups?.map((data, id) => (
-                        <Card className="h-100">
-                            <Card.Body className="cardAlign">
-                                <Card.Text>Score: {JSON.stringify(data?.group)}</Card.Text>
-                            </Card.Body>
-                        </Card>
+                    {props.userData?.user_groups?.map((data, id) => (
+                        <Col key={id} sm={6}>
+                            <Card className="h-100">
+                                <Card.Body className="cardAlign">
+                                    <Card.Title>Group: {data?.group?.name}</Card.Title>
+                                    <h4>Total Score: {props.userData?.team?.group_id}</h4>
+                                </Card.Body>
+                            </Card>
+                        </Col>
                     ))}
                 </Col>
-                <h4>Total Score: {props.userData?.team?.group_id}</h4>
                 <Container>
                     <Row className='justify-content-center p-3'>
                         <h3 className='justify-content-center p-1'>{props.userData?.team?.name} Selections</h3>

@@ -11,30 +11,6 @@ export default function Team(props) {
     const [APIData, setAPIData] = useState([]);
     const [currentGolfers, setCurrentGolfers] = useState([]);
     const [teamName, setTeamName] = useState('');
-    const [getTeam, setGetTeam] = useState([]);
-
-    // const [saveTeam, setSaveTeam] = useState([]);
-
-    // useEffect(() => {
-    //     let lsTeam = JSON.parse(window.localStorage.getItem(saveTeam))
-    //     if (lsTeam) {
-    //         setSaveTeam(lsTeam)
-    //     }
-    // }, [])
-
-    // useEffect(() => {
-    //         saveFullTeam(currentGolfers);
-    // }, [currentGolfers])
-
-    // const saveFullTeam = userTeam => {
-    //     window.localStorage.setItem('saveTeam', JSON.stringify(userTeam));
-    //     setSaveTeam(userTeam);
-    // };
-
-    // const removeFullTeam = () => {
-    //     window.localStorage.removeItem("saveTeam")
-    //     setSaveTeam([])
-    // };
 
     useEffect(() => {
         if (Object.keys(props.userData).length > 0) {
@@ -250,33 +226,6 @@ export default function Team(props) {
             })
     }
 
-    const getTeamScore = () => {
-    axios({
-        method: 'get',
-        url: 'https://library-kadowning110103.codeanyapp.com/api/v1/group',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': 'Content-Type',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-            'Access-Control-Allow-Credentials': true,
-            'Authorization': 'Bearer ' + props.token
-        },
-    }
-    )
-        .then(function (response) {
-            // handle success
-            // console.log(response)
-            setGetTeam(response.data)
-        })
-        .catch(function (error) {
-            console.log({ error })
-        })
-    };
-    
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect (getTeamScore, []);
 
     return (
         props.token.length === 0 ?
@@ -386,21 +335,22 @@ export default function Team(props) {
                                                 .map((data, id) => {
                                                     console.log(data)
                                                     return (
-                                                    <Col key={id}>
-                                                        <Card className="h-100">
-                                                            <Card.Body className="cardAlign">
-                                                                <Card.Title> {data.first_name} {data.last_name}
-                                                                    <button
-                                                                        type="button"
-                                                                        className="btn btn-rounded mx-auto bg-secondary text-white h-100 d-flex align-items-center"
-                                                                        onClick={() => removeFromTeam(data.player_id)}>
-                                                                        <i className="fas fa-minus"></i>
-                                                                    </button>
-                                                                </Card.Title>
-                                                            </Card.Body>
-                                                        </Card>
-                                                    </Col>
-                                                )})}
+                                                        <Col key={id}>
+                                                            <Card className="h-100">
+                                                                <Card.Body className="cardAlign">
+                                                                    <Card.Title> {data.first_name} {data.last_name}
+                                                                        <button
+                                                                            type="button"
+                                                                            className="btn btn-rounded mx-auto bg-secondary text-white h-100 d-flex align-items-center"
+                                                                            onClick={() => removeFromTeam(data.player_id)}>
+                                                                            <i className="fas fa-minus"></i>
+                                                                        </button>
+                                                                    </Card.Title>
+                                                                </Card.Body>
+                                                            </Card>
+                                                        </Col>
+                                                    )
+                                                })}
                                         </Card>
                                     </Element>
                                 </Element>
