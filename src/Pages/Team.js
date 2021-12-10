@@ -45,7 +45,8 @@ export default function Team(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useDeepCompareEffect(() => {
+    const updateAPIData = () => {
+        console.log('updating data')
         if (APIData && props.userData) {
             console.log(props.userData)
             setAPIData(prevAPIData => {
@@ -67,7 +68,25 @@ export default function Team(props) {
                 return newAPIData
             })
         }
-    }, [APIData, props.userData]);
+    }
+
+    useDeepCompareEffect(() => {
+        console.log('useEffect APIdata was changed')
+        updateAPIData()
+    }, [APIData]);
+    
+
+    useDeepCompareEffect(() => {
+        console.log('useEffect userData was changed')
+        updateAPIData()
+    }, [props.userData]);
+    
+
+    useDeepCompareEffect(() => {
+        console.log('useEffect currentGolfers was changed')
+        updateAPIData()
+    }, [currentGolfers]);
+    
 
     //call to add team name to db
 

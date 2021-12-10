@@ -128,7 +128,7 @@ function App() {
             .then(function (response) {
                 // handle success
                 // console.log(response)
-                setGroupData(response.data)
+                setScoreData(response.data)
             })
             .catch(function (error) {
                 console.log({ error })

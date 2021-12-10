@@ -13,16 +13,16 @@ export default function Dashboard(props) {
     return (
         props.token.length === 0 ?
             <Navigate to='/login' /> :
-            <div>
+            <div className='justify-content-center'>
                 <h2 className='change-bold p-2'>Dashboard</h2>
                 <br></br>
                 <h3 className='change-text'>Welcome {Object.keys(props.userData).length > 0 && props.userData.name}!</h3>
                 <br></br>
-                <Col sm={6}>
+                <Col sm={6} className='justify-content-center'>
                     {props.userData?.user_groups?.map((data, id) => (
-                        <Col key={id} sm={6}>
-                            <Card className="h-100">
-                                <Card.Body className="cardAlign">
+                        <Col key={id} sm={6} className='justify-content-center'>
+                            <Card className="h-100 justify-content-center">
+                                <Card.Body className="justify-content-center" >
                                     <Card.Title>Group: {data?.group?.name}</Card.Title>
                                     <h4>Total Score: {props.userData?.team?.group_id}</h4>
                                 </Card.Body>
