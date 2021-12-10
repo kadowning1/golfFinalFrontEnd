@@ -7,7 +7,7 @@ import React from 'react';
 
 export default function JoinGroup(props) {
 
-    // console.log(props.groupData?.data[0]?.attributes?.name)
+ 
     const history = useNavigate();
 
     const joinGroup = (id) => {

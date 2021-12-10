@@ -53,7 +53,7 @@ export default function ImportantInfo() {
 
     const temp = weather?.main?.temp;
     const convert = (Math.round(1.8 * (temp - 273) + 32)) + 'ºF';
-    // const conditions = weather?.weather[0]?.main
+
 
     const leaderboardTable = leaderboard.results?.leaderboard?.map((data, index) => {
         return (

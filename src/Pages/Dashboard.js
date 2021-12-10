@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {  } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { Element } from 'react-scroll';
@@ -23,7 +23,7 @@ export default function Dashboard(props) {
                 <Col key={id} sm={6}>
                   <Card className="h-100">
                     <Card.Body className="cardAlign">
-                      <h4>Total Score: {JSON.stringify(props.scoreData?.data[0]?.attributes?.score)}</h4>
+                      <h4>Total Score: {Object.keys(props.userData).length > 0 && JSON.stringify(props.scoreData?.data[0]?.attributes?.score)}</h4>
                     </Card.Body>
                   </Card>
                 </Col>
