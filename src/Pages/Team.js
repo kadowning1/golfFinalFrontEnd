@@ -13,28 +13,28 @@ export default function Team(props) {
     const [teamName, setTeamName] = useState('');
     const [getTeam, setGetTeam] = useState([]);
 
-    const [saveTeam, setSaveTeam] = useState([]);
+    // const [saveTeam, setSaveTeam] = useState([]);
 
-    useEffect(() => {
-        let lsTeam = window.localStorage.getItem(saveTeam)
-        if (lsTeam) {
-            setSaveTeam(lsTeam)
-        }
-    }, [])
+    // useEffect(() => {
+    //     let lsTeam = JSON.parse(window.localStorage.getItem(saveTeam))
+    //     if (lsTeam) {
+    //         setSaveTeam(lsTeam)
+    //     }
+    // }, [])
 
-    useEffect(() => {
-            saveFullTeam(currentGolfers);
-    }, [currentGolfers])
+    // useEffect(() => {
+    //         saveFullTeam(currentGolfers);
+    // }, [currentGolfers])
 
-    const saveFullTeam = userTeam => {
-        localStorage.setItem('saveTeam', userTeam);
-        setSaveTeam(userTeam);
-    };
+    // const saveFullTeam = userTeam => {
+    //     window.localStorage.setItem('saveTeam', JSON.stringify(userTeam));
+    //     setSaveTeam(userTeam);
+    // };
 
-    const removeFullTeam = () => {
-        localStorage.removeItem("saveTeam")
-        setSaveTeam('')
-    };
+    // const removeFullTeam = () => {
+    //     window.localStorage.removeItem("saveTeam")
+    //     setSaveTeam([])
+    // };
 
     useEffect(() => {
         if (Object.keys(props.userData).length > 0) {
@@ -71,14 +71,18 @@ export default function Team(props) {
 
     useDeepCompareEffect(() => {
         if (APIData && props.userData) {
+            console.log(props.userData)
             setAPIData(prevAPIData => {
-                let myGolfers = currentGolfers;
+                let myGolfers = [...currentGolfers];
                 const newAPIData = prevAPIData.filter(apiGolfer => {
                     let foundGolfer = props.userData?.team?.team_golfers.find(myGolfer => {
-                        return myGolfer.id === apiGolfer.player_id
+                        if (myGolfer.golfer_id === apiGolfer.player_id) {
+                            return apiGolfer
+                        }
+                        return false
                     })
                     if (foundGolfer) {
-                        myGolfers.push(foundGolfer)
+                        myGolfers.push(apiGolfer)
                         return false
                     }
                     return apiGolfer
@@ -90,7 +94,6 @@ export default function Team(props) {
     }, [APIData, props.userData]);
 
     //call to add team name to db
-    console.log(props.userData.team)
 
     const updateTeamName = (e) => {
         e.preventDefault()
@@ -119,6 +122,7 @@ export default function Team(props) {
             .then(function (response) {
                 // handle success
                 console.log(response)
+                props.getUserData()
                 // setTeamName(data.response.name)
                 history('/dashboard')
 
@@ -156,7 +160,8 @@ export default function Team(props) {
                 .then(r => {
                     console.log(r)
                     addGolfer(id);
-                    saveFullTeam(r.data.team_golfers);
+                    props.getUserData()
+                    // saveFullTeam(r.data.team_golfers);
 
                 })
                 .catch(function (error) {
@@ -237,7 +242,8 @@ export default function Team(props) {
                 // handle success
                 console.log(response)
                 removeGolfer(id);
-                removeFullTeam();
+                props.getUserData();
+                // removeFullTeam();
             })
             .catch(function (error) {
                 console.log({ error })
@@ -377,7 +383,9 @@ export default function Team(props) {
                                         <Card className="">
                                             {currentGolfers
                                                 .sort((a, b) => ((a.last_name < b.last_name) ? -1 : 0))
-                                                .map((data, id) => (
+                                                .map((data, id) => {
+                                                    console.log(data)
+                                                    return (
                                                     <Col key={id}>
                                                         <Card className="h-100">
                                                             <Card.Body className="cardAlign">
@@ -392,7 +400,7 @@ export default function Team(props) {
                                                             </Card.Body>
                                                         </Card>
                                                     </Col>
-                                                ))}
+                                                )})}
                                         </Card>
                                     </Element>
                                 </Element>

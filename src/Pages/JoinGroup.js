@@ -10,13 +10,13 @@ export default function JoinGroup(props) {
     // console.log(props.groupData?.data[0]?.attributes?.name)
     const history = useNavigate();
 
-    const joinGroup = () => {
+    const joinGroup = (id) => {
 
-        
+
         const data = {
-            name: props.groupData
+            group_id: id
         }
-        
+
         // let map = data.name.map(props.groupData.data)
 
         axios({
@@ -37,6 +37,7 @@ export default function JoinGroup(props) {
             .then(function (response) {
                 // handle success
                 console.log(response)
+                props.getUserData()
                 history('/dashboard')
             })
             .catch(function (error) {

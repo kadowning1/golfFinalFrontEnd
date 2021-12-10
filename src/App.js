@@ -41,25 +41,28 @@ function App() {
     const [groupData, setGroupData] = useState({})
     const [userData, setUserData] = useState({})
 
+    const getUserData = () => {
+        axios({
+            method: "get",
+            url: 'https://library-kadowning110103.codeanyapp.com/api/v1/user',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+                "Access-Control-Allow-Credentials": true,
+                'Authorization': 'Bearer ' + token
+            }
+        })
+            .then(response => setUserData(response.data[0]))
+            .catch(function (error) {
+                console.log({ error })
+            })
+    }
     useEffect(() => {
         if (token.length > 0) {
-            axios({
-                method: "get",
-                url: 'https://library-kadowning110103.codeanyapp.com/api/v1/user',
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Headers": "Content-Type",
-                    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-                    "Access-Control-Allow-Credentials": true,
-                    'Authorization': 'Bearer ' + token
-                }
-            })
-                .then(response => setUserData(response.data[0]))
-                .catch(function (error) {
-                    console.log({ error })
-                })
+           getUserData();
 
             axios({
                 method: 'get',
@@ -124,8 +127,8 @@ function App() {
                                 <Route path="/creategroup" element={<CreateGroup token={token} userData={userData} />} />
                                 <Route path="/dashboard" element={<Dashboard groupData={groupData} token={token} userData={userData} />} />
                                 <Route path="/group" element={<Group token={token} userData={userData} />} />
-                                <Route path="/joingroup" element={<JoinGroup groupData={groupData} token={token} userData={userData} />} />
-                                <Route path="/team" element={<Team token={token} userData={userData} />} />
+                                <Route path="/joingroup" element={<JoinGroup getUserData={getUserData} groupData={groupData} token={token} userData={userData} />} />
+                                <Route path="/team" element={<Team getUserData={getUserData} token={token} userData={userData} />} />
 
 
                                 <Route path="/newuser" element={<NewUser saveToken={saveToken} token={token} />} />

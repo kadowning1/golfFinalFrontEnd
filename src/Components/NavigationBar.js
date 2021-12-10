@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { Navbar, Nav, Button, NavDropdown } from 'react-bootstrap';
 
 export default function NavigationBar(props) {
+    const [ show, setShow ] = useState(false);
 
     const history = useNavigate()
 
@@ -32,10 +33,10 @@ export default function NavigationBar(props) {
     return (
         <div className="row text-center back">
             <div className="col-12 text-center d-flex justify-content-center back">
-                <Navbar variant="dark" expand="lg" className='text-center back'>
+                <Navbar variant="dark" expand="lg" className='text-center back' show={show}>
 
                     <Navbar.Brand className='change-bold' as={Link} to="/">PGA Golf Pool</Navbar.Brand>
-                    <Navbar.Toggle id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
+                    <Navbar.Toggle onClick = {() => setShow(!show)} id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto masters">
                             {props.token.length === 0 ? <Nav.Link as={Link} to="/login">Login</Nav.Link> : null}
