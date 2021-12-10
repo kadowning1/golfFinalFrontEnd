@@ -6,29 +6,29 @@ import { Element } from 'react-scroll';
 
 export default function Dashboard(props) {
 
-    // const DATE_OPTIONS = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-
-    // console.log(props.userData.user_groups)
+    console.log(props.userData.user_groups)
     // console.log(props.getTeamScore)
     return (
         props.token.length === 0 ?
             <Navigate to='/login' /> :
-            <div className='justify-content-center'>
+            <div>
                 <h2 className='change-bold p-2'>Dashboard</h2>
                 <br></br>
                 <h3 className='change-text'>Welcome {Object.keys(props.userData).length > 0 && props.userData.name}!</h3>
                 <br></br>
-                <Col sm={6} className='justify-content-center'>
-                    {props.userData?.user_groups?.map((data, id) => (
-                        <Col key={id} sm={6} className='justify-content-center'>
-                            <Card className="h-100 justify-content-center">
-                                <Card.Body className="justify-content-center" >
-                                    <Card.Title>Group: {data?.group?.name}</Card.Title>
-                                    <h4>Total Score: {props.userData?.team?.group_id}</h4>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    ))}
+                <Col xs={10} className='offset-1'>
+                    <Row>
+                        {props.userData?.user_groups?.map((data, id) => (
+                            <Col key={id} sm={6}>
+                                <Card className="h-100">
+                                    <Card.Body className="cardAlign">
+                                        <Card.Title>Group: {data?.group?.name}</Card.Title>
+                                        <h4>Total Score: {props.userData?.team?.group_id}</h4>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        ))}
+                    </Row>
                 </Col>
                 <Container>
                     <Row className='justify-content-center p-3'>
@@ -59,12 +59,10 @@ export default function Dashboard(props) {
                         <Col lg={8}>
                             <Link to="/team" as={Link} className="btn btn-secondary lg p-3">Edit Team</Link>
                             <h4 className='p-3'>Deadline to Submit Picks: </h4>
-                            <h5>Thu, Dec 16, 2021 12:00am
-                            {/* {(new Date()).toLocaleDateString('en-US', DATE_OPTIONS)} */}
-                            </h5>
+                            <h5>Thu, Dec 16, 2021 12:00am</h5>
                         </Col>
                     </Row>
                 </Container>
-            </div>
+            </div >
     );
 }

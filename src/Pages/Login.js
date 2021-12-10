@@ -19,7 +19,7 @@ export default function Login(props) {
                 username: login.email,
                 password: login.password,
                 client_id: "2",
-                client_secret: "j46qtfBJ2RgRuPMBSfEUEfrRFSttG9CgSPsDDHpQ",
+                client_secret: "lgXT9HEQAqt9xAgfElxWksPZSa40szv4H0XZlosH",
                 scope: "",
                 grant_type: "password",
             },
@@ -77,7 +77,7 @@ export default function Login(props) {
                                     value={login.email||''}
                                     onChange={objectAssistant}
                                 />
-                                {errors.email && <h4 className='text-danger'>Email is invalid.</h4>}
+                                {errors.email && <h4 className='text-danger change-bold'>Email is invalid.</h4>}
                             </label>
                             <br></br>
                             <label>
@@ -90,7 +90,7 @@ export default function Login(props) {
                                     onChange={objectAssistant}
                                     id='password'
                                 />
-                                {errors.password && <h4 className='text-danger'>Password is invalid.</h4>}
+                                {errors.password && <h4 className='text-danger change-bold'>Password is invalid.</h4>}
                             </label>
                             <br></br>
                             <div className='p-3'>
@@ -99,7 +99,7 @@ export default function Login(props) {
                             <div className='p-3'>
                                 <Link as={Link} to="/newuser" className="btn btn-secondary">New User</Link>
                             </div>
-                            <p>{error.length > 0 ? <h4 className='text-danger'>{error}</h4> : null}</p>
+                            <p>{error.length > 0 ? <h4 className='text-danger change-bold'>{error}</h4> : null}</p>
                         </form>
                     </div>
                 </div>

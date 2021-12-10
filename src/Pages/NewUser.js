@@ -79,7 +79,7 @@ export default function NewUser(props) {
                 value={newUser.name||''}
                 className=''
               />
-              {errors.username && <h4 className='text-danger'>Username is invalid.</h4>}
+              {errors.username && <h4 className='text-danger change-bold'>Username is invalid.</h4>}
             </label>
             <br></br>
             <label className='p-3'>
@@ -92,7 +92,7 @@ export default function NewUser(props) {
                 onChange={objectAssistant}
                 value={newUser.password||''}
               />
-              {errors.password && <h4 className='text-danger'>Password is invalid.</h4>}
+              {errors.password && <h4 className='text-danger change-bold'>Password is invalid.</h4>}
             </label>
             <br></br>
             <label className='p-3'>
@@ -105,7 +105,7 @@ export default function NewUser(props) {
                 onChange={objectAssistant}
                 value={newUser.email||''}
               />
-              {errors.email && <h4 className='text-danger'>Email is invalid.</h4>}
+              {errors.email && <h4 className='text-danger change-bold'>Email is invalid.</h4>}
             </label>
             <label className='p-3'>
               <h5>Enter Age</h5>
@@ -116,14 +116,14 @@ export default function NewUser(props) {
               onChange={objectAssistant}
                 value={newUser.age}
               placeholder="1" />
-              {errors.email && <h4 className='text-danger'>Email is invalid.</h4>}
+              {errors.email && <h4 className='text-danger change-bold'>Age is required.</h4>}
             </label>
             <div className='p-3'>
               <Button
                 variant="secondary"
                 onClick={createNewUser}>Submit New User</Button>{' '}
             </div>
-            {error.length > 0 ? <h4 className='text-danger'>{error}</h4> : null}
+            {error.length > 0 ? <h4 className='text-danger change-bold'>{error}</h4> : null}
           </form>
         </div>
       </div>
