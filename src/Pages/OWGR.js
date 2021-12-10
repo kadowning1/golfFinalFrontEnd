@@ -13,8 +13,8 @@ export default function OWGR() {
             url: 'https://golf-leaderboard-data.p.rapidapi.com/world-rankings',
             headers: {
                 'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
-                'x-rapidapi-key': ''
-            },
+                // 'x-rapidapi-key': '4e3ba61b86mshab04471da6fe79cp136b51jsnb7094541e457'
+              }
         })
             .then(function (response) {
                 getRankings(response.data)

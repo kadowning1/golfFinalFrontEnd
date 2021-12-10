@@ -43,9 +43,8 @@ export default function Group(props) {
             <div>
                 <h1 className='p-3 change-bold'>Group Standings</h1>
                 <h1>
-                    Group Name
-                    {/* {JSON.stringify(groupStandings.data)} */}
-                    </h1>
+                <h3 className='justify-content-center p-1'>Group: {props.userData?.team?.name}</h3>
+                </h1>
                 <Container className='justify-content-center p-2'>
                     <Row className='justify-content-center'>
                         <Col lg={5}>
@@ -60,12 +59,15 @@ export default function Group(props) {
                                 }}>
                                     {groupStandings.data?.map((data, id) => (
                                         <Col key={id}>
-                                            <Card className="h-100">
-                                                <Card.Body className="cardAlign">
-                                                    <Card.Title>Team Name: {data?.attributes?.name}</Card.Title>
-                                                    <Card.Text>Score: {data?.attributes?.user_id}</Card.Text>
-                                                </Card.Body>
-                                            </Card>
+                                            {props.scoreData.data?.map((data) => (
+                                                <Card className="h-100">
+                                                    <Card.Body className="cardAlign">
+                                                        <Card.Title>Team Name: {data?.attributes?.name}</Card.Title>
+                                                        <Card.Text>Score: {JSON.stringify(data.attributes?.score)}</Card.Text>
+                                                    </Card.Body>
+                                                </Card>
+                                            ))
+                                            }
                                         </Col>
                                     ))}
                                 </Element>
