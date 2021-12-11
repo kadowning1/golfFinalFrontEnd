@@ -44,7 +44,7 @@ export default function NewUser(props) {
         // handle success
         console.log(response)
         props.saveToken(response.data.access_token.token)
-        history.push('/login')
+        history('/')
 
       })
       .catch(function (error) {

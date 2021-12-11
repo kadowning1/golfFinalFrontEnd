@@ -7,6 +7,7 @@ import axios from 'axios';
 export default function Group(props) {
 
     const [groupStandings, setGroupStandings] = useState([])
+    console.log(groupStandings.data)
 
     useEffect((data) => {
 
@@ -57,12 +58,14 @@ export default function Group(props) {
                                 <Element name="scroll-container-first-element" style={{
                                     marginBottom: '0px'
                                 }}>
-                                    {groupStandings.data?.map((data, id) => (
-                                        <Col key={id}>
-                                            {props.scoreData.data?.map((data) => (
+                                    {groupStandings.data?.map((teamData, id) => (
+                                        <Col>
+                                            {props.scoreData.data
+                                            .sort((a, b) => ((a.attributes?.score < b.attributes?.score) ? -1 : 0))
+                                            .map((data) => (
                                                 <Card className="h-100">
                                                     <Card.Body className="cardAlign">
-                                                        <Card.Title>Team Name: {data?.attributes?.name}</Card.Title>
+                                                        <Card.Title>Team Name: {teamData?.attributes?.name}</Card.Title>
                                                         <Card.Text>Score: {JSON.stringify(data.attributes?.score)}</Card.Text>
                                                     </Card.Body>
                                                 </Card>

@@ -13,8 +13,8 @@ export default function CreateGroup(props) {
     const { register, formState: { errors }, handleSubmit, } = useForm();
     const history = useNavigate()
 
-    const createNewGroup = (event) => {
-        event.preventDefault();
+    const createNewGroup = () => {
+        // event.preventDefault();
         const data = {
             name: groupName.name,
         }
