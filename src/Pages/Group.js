@@ -8,6 +8,7 @@ export default function Group(props) {
 
     const [groupStandings, setGroupStandings] = useState([])
     console.log(groupStandings.data)
+    console.log(props.userData)
 
     useEffect((data) => {
 
@@ -58,8 +59,8 @@ export default function Group(props) {
                                 <Element name="scroll-container-first-element" style={{
                                     marginBottom: '0px'
                                 }}>
-                                    {groupStandings.data?.map((teamData, id) => (
-                                        <Col>
+                                    {groupStandings.data?.map((teamData, teamId) => (
+                                        <Col key={teamId}>
                                             {props.scoreData.data
                                             .sort((a, b) => ((a.attributes?.score < b.attributes?.score) ? -1 : 0))
                                             .map((data) => (

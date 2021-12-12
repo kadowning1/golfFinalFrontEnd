@@ -12,7 +12,7 @@ export default function CreateGroup(props) {
     const [groupName, setGroupName] = useState({})
     const { register, formState: { errors }, handleSubmit, } = useForm();
     const history = useNavigate()
-
+console.log(props.userData)
     const createNewGroup = () => {
         // event.preventDefault();
         const data = {
@@ -63,7 +63,7 @@ export default function CreateGroup(props) {
                 <div className='row'>
                     <div className="col text-center">
                         <h3 className='p-2'>Create Your Group!</h3>
-                        <form onSubmit={handleSubmit(createNewGroup)}>
+                        <form onSubmit={createNewGroup}>
                             <label>
                                 <h6 className='p-2'>Group Name</h6>
                                 <input
