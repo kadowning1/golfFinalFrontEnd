@@ -7,8 +7,8 @@ import axios from 'axios';
 export default function Group(props) {
 
   const [groupStandings, setGroupStandings] = useState([])
-  console.log(groupStandings.data)
-  console.log(props.userData)
+  //   console.log(groupStandings.data)
+  console.log(props.groupData)
 
   useEffect((data) => {
 
@@ -39,13 +39,15 @@ export default function Group(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  console.log(groupStandings)
+  
   return (
     props.token.length === 0 ?
       <Navigate to='/login' /> :
       <div>
         <h1 className='p-3 change-bold'>Group Standings</h1>
         <h1>
-          <h3 className='justify-content-center p-1'>Group: {props.userData?.team?.name}</h3>
+          <h3 className='justify-content-center p-1'>Group: {Object.keys(props.userData).length > 0 && props.groupData.data[0]?.attributes.name}</h3>
         </h1>
         <Container className='justify-content-center p-2'>
           <Row className='justify-content-center'>
@@ -63,11 +65,11 @@ export default function Group(props) {
                     <Col key={teamId}>
                       {props.scoreData.data
                         .sort((a, b) => ((a.attributes?.score < b.attributes?.score) ? -1 : 0))
-                        .map((data) => (
-                          <Card className="h-100">
+                        .map((scoreData) => (
+                          <Card className="h-100" key={scoreData}>
                             <Card.Body className="cardAlign">
                               <Card.Title>Team Name: {teamData?.attributes?.name}</Card.Title>
-                              <Card.Text>Score: {JSON.stringify(data.attributes?.score)}</Card.Text>
+                              <Card.Text>Score: {JSON.stringify(scoreData.attributes?.score)}</Card.Text>
                             </Card.Body>
                           </Card>
                         ))

@@ -170,7 +170,7 @@ export default function Team(props) {
       })
   }
 
-  console.log(props.getTeamScore)
+//   console.log(props.getTeamScore)
   return (
     props.token.length === 0 ?
       <Navigate to='/login' /> :

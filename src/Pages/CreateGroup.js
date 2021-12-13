@@ -9,16 +9,18 @@ import { useNavigate, Navigate } from 'react-router-dom';
 export default function CreateGroup(props) {
 
     const [error, setError] = useState('')
-    const [groupName, setGroupName] = useState({})
+    const [groupName, setGroupName] = useState('')
     const { register, formState: { errors }, handleSubmit, } = useForm();
     const history = useNavigate()
-console.log(props.userData)
-    const createNewGroup = () => {
-        // event.preventDefault();
+
+    console.log(props.userData)
+
+    const createNewGroup = (event) => {
+        event.preventDefault();
         const data = {
-            name: groupName.name,
+            name: groupName,
         }
-        // console.log(data)
+        console.log(data)
         axios({
             method: 'post',
             url: 'https://library-kadowning110103.codeanyapp.com/api/v1/creategroup',
@@ -39,8 +41,9 @@ console.log(props.userData)
             .then(function (response) {
                 // handle success
                 console.log(response)
-                setGroupName(data.response.name)
+                setGroupName('')
                 history('/dashboard')
+                props.getUserData()
             })
             .catch(function (error) {
                 console.log({ error })
@@ -51,9 +54,9 @@ console.log(props.userData)
             });
     }
 
-    const objectAssistant = e => {
-        return setGroupName(previousState => ({ ...previousState, [e.target.name]: e.target.value }), [])
-    }
+    // const objectAssistant = e => {
+    //     return setGroupName(previousState => ({ ...previousState, [e.target.name]: e.target.value }), [])
+    // }
 
     // console.log({ login })
     return (
@@ -70,8 +73,8 @@ console.log(props.userData)
                                     {...register("name", { required: true, minLength: 4, maxLength: 64 })}
                                     type="name"
                                     name='name'
-                                    value={groupName.name}
-                                    onChange={objectAssistant}
+                                    value={groupName}
+                                    onChange={e=>setGroupName(e.target.value)}
                                     id='name'
                                 />
                                 {errors.password && <h4 className='text-danger'>Group is invalid.</h4>}
