@@ -10,7 +10,7 @@ export default function CreateGroup(props) {
 
     const [error, setError] = useState('')
     const [groupName, setGroupName] = useState('')
-    const { register, formState: { errors }, handleSubmit, } = useForm();
+    const { register, formState: { errors } } = useForm();
     const history = useNavigate()
 
     console.log(props.userData)

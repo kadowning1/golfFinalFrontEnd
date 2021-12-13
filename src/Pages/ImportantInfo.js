@@ -57,7 +57,7 @@ export default function ImportantInfo() {
 
     const leaderboardTable = leaderboard.results?.leaderboard?.map((data, index) => {
         return (
-            <tr key={index}>
+            <tr key={index} className='bg-white'>
                 <td>{data.position}</td>
                 <td>{data.first_name} {data.last_name}</td>
                 <td>{data.total_to_par}</td>

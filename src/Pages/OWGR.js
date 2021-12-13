@@ -27,7 +27,7 @@ export default function OWGR() {
 
     const worldRankings = ranking.results?.rankings?.map((data, index) => {
         return (
-            <tr key={index}>
+            <tr key={index} className='bg-white'>
                 <td>{data.position}</td>
                 <td>{data.player_name}</td>
             </tr>

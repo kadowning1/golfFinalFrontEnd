@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { Navbar, Nav, Button, NavDropdown } from 'react-bootstrap';
@@ -38,39 +38,44 @@ export default function NavigationBar(props) {
             <Navbar.Toggle id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto masters">
-                {props.token.length === 0 && <Nav.Link as={Link} to="/login">Login</Nav.Link> }
+                {props.token.length === 0 && <Nav.Link as={Link} to="/login">Login</Nav.Link>}
                 {props.token.length === 0 && <Nav.Link as={Link} to="/newuser">New User</Nav.Link>}
-                {props.token.length > 0 && <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link> }
-                {props.token.length > 0 && <Nav.Link as={Link} to="/team">My Team</Nav.Link> }
+                {props.token.length > 0 && <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>}
+                {props.token.length > 0 && <Nav.Link as={Link} to="/team">My Team</Nav.Link>}
 
                 {props.token.length > 0 &&
                   <NavDropdown title="Groups" id="basic-nav-dropdown" className="justify-content-center">
-                    {props.token.length > 0 && 
-                    <NavDropdown.Item as={Link} to="/creategroup">
-                      Create Group
+                    {props.token.length > 0 &&
+                      <NavDropdown.Item as={Link} to="/creategroup">
+                        Create Group
                     </NavDropdown.Item>}
-                    <NavDropdown.Item>
-                      {props.token.length > 0 && <Link to="/joingroup">Join Group</Link> }
-                    </NavDropdown.Item>
-                    <NavDropdown.Item>
-                      {props.token.length > 0 && <Link to="/group">View Group</Link> }
-                    </NavDropdown.Item>
-                  </NavDropdown> }
+                    {props.token.length > 0 &&
+                      <NavDropdown.Item as={Link} to="/group">
+                        View Group
+                    </NavDropdown.Item>}
+                    {props.token.length > 0 &&
+                      <NavDropdown.Item as={Link} to="/joingroup">
+                        Join Group
+                    </NavDropdown.Item>}
+                  </NavDropdown>}
 
                 {props.token.length > 0 &&
                   <NavDropdown title="Golf Information" id="basic-nav-dropdown" className="masters">
-                    <NavDropdown.Item>
-                      {props.token.length > 0 && <Link to="/information">Leaderboard</Link> }
-                    </NavDropdown.Item>
-                    <NavDropdown.Item>
-                      {props.token.length > 0 && <Link to="/player">Entry List</Link> }
-                    </NavDropdown.Item>
-                    <NavDropdown.Item>
-                      {props.token.length > 0 && <Link to="/rankings">World Golf Rankings</Link> }
-                    </NavDropdown.Item>
-                  </NavDropdown> }
+                    {props.token.length > 0 &&
+                      <NavDropdown.Item as={Link} to="/information">
+                        Leaderboard
+                    </NavDropdown.Item>}
+                    {props.token.length > 0 &&
+                      <NavDropdown.Item as={Link} to="/player">
+                        Entry List
+                    </NavDropdown.Item>}
+                    {props.token.length > 0 &&
+                      <NavDropdown.Item as={Link} to="/rankings">
+                        World Golf Rankings
+                    </NavDropdown.Item>}
+                  </NavDropdown>}
 
-                {props.token.length > 0 && <Button variant="secondary" onClick={logOut}>Logout</Button> }
+                {props.token.length > 0 && <Button variant="secondary" onClick={logOut}>Logout</Button>}
 
               </Nav>
             </Navbar.Collapse>
